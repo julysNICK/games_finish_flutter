@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:games_finish/screens/home/widgets/bottom_bar/bottom_bar.dart';
 import 'package:games_finish/screens/home/widgets/list_grid_items/list_grid_items.dart';
 import 'package:games_finish/screens/home/widgets/tab_view/tab_view.dart';
 
 import '../../ui/theme.dart';
-import '../../ui/widgets/skeleton_bottom_sheet/skeleton_bottom_sheet.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -16,58 +16,76 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: DefaultTabController(
-          length: 3,
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 0.00),
-                    child: Text(
-                      'FinishLine',
-                      style: TextStyle(
-                          color: AppTheme.textDark,
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold),
+      body: DefaultTabController(
+        length: 3,
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 0.00),
+                  child: Text(
+                    'FinishLine',
+                    style: TextStyle(
+                        color: AppTheme.textDark,
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0.00),
+                  child: Text(
+                    'the best way to store your finished games',
+                    style: TextStyle(
+                      color: AppTheme.textDark.withOpacity(0.5),
+                      fontSize: 15,
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 0.00),
-                    child: Text(
-                      'the best way to store your finished games',
-                      style: TextStyle(
-                        color: AppTheme.textDark.withOpacity(0.5),
-                        fontSize: 15,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const TabBarViewHome(),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Flexible(
-                    flex: 1,
-                    child: ListGridItems(),
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const TabBarViewHome(),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Flexible(
+                  flex: 1,
+                  child: ListGridItems(),
+                ),
+              ],
             ),
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              builder: (context) => const SkeletonBottomSheet(),
-            );
-          },
-          child: const Icon(Icons.add),
-        ));
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: const BottomBarNav(),
+      extendBody: true,
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        color: Theme.of(context).primaryColor,
+        child: IconTheme(
+          data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: const [
+                Icon(
+                  Icons.home,
+                  size: 30,
+                ),
+                Icon(
+                  Icons.person,
+                  size: 30,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
