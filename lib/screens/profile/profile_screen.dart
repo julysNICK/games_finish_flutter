@@ -41,7 +41,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     image: AssetImage('assets/ProfilVector.png'),
                     fit: BoxFit.cover,
                   ),
-                  color: Colors.red,
                   borderRadius: BorderRadius.circular(100),
                   border: Border.all(
                     color: Colors.black,
