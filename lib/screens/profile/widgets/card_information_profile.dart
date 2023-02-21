@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CardInformation extends StatelessWidget {
-  const CardInformation({
+  CardInformation({
     super.key,
+    required this.titleCardProfile,
+    required this.contentCardProfile,
   });
+  String titleCardProfile;
+  String contentCardProfile;
 
   @override
   Widget build(BuildContext context) {
@@ -24,18 +28,19 @@ class CardInformation extends StatelessWidget {
           ),
         ],
       ),
-      child:
-          Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
-          'First name',
-          style: TextStyle(
+          titleCardProfile,
+          style: const TextStyle(
             color: Colors.grey,
             fontSize: 15,
-            fontWeight: FontWeight.bold,
           ),
         ),
-        Text("John",
-            style: TextStyle(
+        const SizedBox(
+          height: 5,
+        ),
+        Text(contentCardProfile,
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 20,
               fontWeight: FontWeight.bold,

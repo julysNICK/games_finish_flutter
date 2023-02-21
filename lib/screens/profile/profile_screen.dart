@@ -50,7 +50,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const SizedBox(
               height: 10,
             ),
-            const CardInformation()
+            CardInformation(
+              titleCardProfile: 'First Name',
+              contentCardProfile: 'John',
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            CardInformation(
+              titleCardProfile: 'Last Name',
+              contentCardProfile: 'Doe',
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            CardInformation(
+                titleCardProfile: 'Email',
+                contentCardProfile: 'jonhDOe@test.com'),
+            const SizedBox(
+              height: 10,
+            ),
+            CardInformation(
+                titleCardProfile: 'Phone Number',
+                contentCardProfile: '123456789'),
           ],
         ),
       ),
