@@ -4,6 +4,7 @@ import 'package:games_finish/screens/home/widgets/list_grid_items/list_grid_item
 import 'package:games_finish/screens/home/widgets/tab_view/tab_view.dart';
 
 import '../../ui/theme.dart';
+import '../../ui/widgets/my_bottom_app_bar/my_bottom_app_bar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -63,29 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: const BottomBarNav(),
       extendBody: true,
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        color: Theme.of(context).primaryColor,
-        child: IconTheme(
-          data: IconThemeData(color: Theme.of(context).colorScheme.onPrimary),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: const [
-                Icon(
-                  Icons.home,
-                  size: 30,
-                ),
-                Icon(
-                  Icons.person,
-                  size: 30,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+      bottomNavigationBar: MyBottomAppBarNav(context: context),
     );
   }
 }
