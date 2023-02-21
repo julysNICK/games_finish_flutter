@@ -44,13 +44,18 @@ class _SkeletonBottomSheetState extends State<SkeletonBottomSheet> {
             child: Column(
               children: [
                 Center(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 20),
-                    height: 5,
-                    width: 50,
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(10),
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      height: 5,
+                      width: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                   ),
                 ),
