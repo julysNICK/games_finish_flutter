@@ -8,33 +8,40 @@ class ThrowMessage {
 }
 
 class ThrowMessageFieldsUsers {
-  User user;
+  User? user;
 
-  ThrowMessageFieldsUsers({
-    required this.user,
-  });
+  ThrowMessageFieldsUsers({this.user});
 
   String throwMessageEmpty() {
-    if (user.userFullName.isEmpty) {
+    if (user!.userFullName.isEmpty) {
       print("entrei aquidwqdqw");
       return ThrowMessage.throwMessage("Full Name is empty");
-    } else if (user.userEmail.isEmpty) {
+    } else if (user!.userEmail.isEmpty) {
       return ThrowMessage.throwMessage("Email is empty");
-    } else if (user.userPassword.isEmpty) {
+    } else if (user!.userPassword.isEmpty) {
       return ThrowMessage.throwMessage("Password is empty");
-    } else if (user.userPhone.isEmpty) {
+    } else if (user!.userPhone.isEmpty) {
       return ThrowMessage.throwMessage("Number Phone is empty");
     }
     return "";
   }
 
   String throwMessageVerifyFields() {
-    if (!VerifyFields.isEmailValid(user.userEmail)) {
+    if (!VerifyFields.isEmailValid(user!.userEmail)) {
       return ThrowMessage.throwMessage("Email is invalid");
-    } else if (!VerifyFields.isPasswordValid(user.userPassword)) {
+    } else if (!VerifyFields.isPasswordValid(user!.userPassword)) {
       return ThrowMessage.throwMessage("Password is invalid");
-    } else if (!VerifyFields.isPhoneValid(user.userPhone)) {
+    } else if (!VerifyFields.isPhoneValid(user!.userPhone)) {
       return ThrowMessage.throwMessage("Number Phone is invalid");
+    }
+    return "";
+  }
+
+  String throwMessageVerifyEmptyFields(String email, String password) {
+    if (VerifyFields.isEmailEmpty(email)) {
+      return ThrowMessage.throwMessage("Email is empty");
+    } else if (VerifyFields.isPasswordEmpty(password)) {
+      return ThrowMessage.throwMessage("Password is empty");
     }
     return "";
   }

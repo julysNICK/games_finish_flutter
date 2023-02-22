@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:games_finish/screens/login/widgets/forgot_password/forgot_password.dart';
 import 'package:games_finish/ui/widgets/pain_custom_top/paint_custom_top.dart';
 import 'package:games_finish/screens/login/widgets/paint_custom_right/paint_custom_right.dart';
@@ -7,7 +8,8 @@ import 'package:games_finish/ui/theme.dart';
 
 import '../../ui/widgets/button_custom_signin_signup/button_custom_signin_signup.dart';
 import '../../ui/widgets/field/field_custom.dart';
-import '../home/home_screen.dart';
+import '../../utils/throw_messa_error.dart';
+import 'bloc/login_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -17,6 +19,11 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final ThrowMessageFieldsUsers _throwMessageFieldsUsers =
+      ThrowMessageFieldsUsers();
+  bool _isError = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,61 +66,83 @@ class _LoginScreenState extends State<LoginScreen> {
               const SizedBox(
                 height: 30,
               ),
-              Form(
-                child: Column(
-                  children: [
-                    FieldCustom(),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    FieldCustom(
-                      hintText: "Password",
-                      icon: Icons.lock,
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    ForgotPassword(),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    Stack(
+              BlocBuilder<LoginBloc, LoginState>(
+                builder: (context, LoginState state) {
+                  return Form(
+                    child: Column(
                       children: [
-                        Positioned(
-                          child: CustomPaint(
-                            size: const Size(
-                              120,
-                              150,
+                        FieldCustom(),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        FieldCustom(
+                          hintText: "Password",
+                          icon: Icons.lock,
+                        ),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        ForgotPassword(),
+                        const SizedBox(
+                          height: 30,
+                        ),
+                        if (_isError)
+                          Text(_throwMessageFieldsUsers
+                              .throwMessageVerifyEmptyFields(
+                                  _emailController.text,
+                                  _passwordController.text)),
+                        Stack(
+                          children: [
+                            Positioned(
+                              child: CustomPaint(
+                                size: const Size(
+                                  120,
+                                  150,
+                                ),
+                                painter: RPSCustomPainterRight(),
+                              ),
                             ),
-                            painter: RPSCustomPainterRight(),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
-                          child: Column(
-                            children: [
-                              ButtonCustomSignInSignUp(
-                                nameButton: "Sign In",
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => const HomeScreen(),
-                                    ),
-                                  );
-                                },
+                            Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: Column(
+                                children: [
+                                  ButtonCustomSignInSignUp(
+                                    nameButton: "Sign In",
+                                    onPressed: () {
+                                      if (_throwMessageFieldsUsers
+                                          .throwMessageVerifyEmptyFields(
+                                              _emailController.text,
+                                              _passwordController.text)
+                                          .isEmpty) {
+                                        setState(() {
+                                          _isError = false;
+                                        });
+                                        BlocProvider.of<LoginBloc>(context).add(
+                                          LoginButtonPressed(
+                                            email: _emailController.text,
+                                            password: _passwordController.text,
+                                          ),
+                                        );
+                                      }
+                                      setState(() {
+                                        _isError = true;
+                                      });
+                                    },
+                                  ),
+                                  const SizedBox(
+                                    height: 50,
+                                  ),
+                                  const SignUp(),
+                                ],
                               ),
-                              const SizedBox(
-                                height: 50,
-                              ),
-                              const SignUp(),
-                            ],
-                          ),
-                        ),
+                            ),
+                          ],
+                        )
                       ],
-                    )
-                  ],
-                ),
+                    ),
+                  );
+                },
               )
             ],
           ),
