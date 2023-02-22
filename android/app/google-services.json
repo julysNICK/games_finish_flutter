@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "149034308894",
+    "project_id": "gamefinish-2ae98",
+    "storage_bucket": "gamefinish-2ae98.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149034308894:android:29bd0664c44f616ee5250f",
+        "android_client_info": {
+          "package_name": "com.example.games_finish"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "149034308894-b4nscgqjgbf17vcs5flkm4e817dnsq1q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsAqeLdTVq9YkdrGNsj_eyM3tT0aXG_YU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "149034308894-b4nscgqjgbf17vcs5flkm4e817dnsq1q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
