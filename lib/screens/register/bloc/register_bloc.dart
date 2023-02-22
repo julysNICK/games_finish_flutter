@@ -33,7 +33,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     RegisterEvent event,
   ) async* {
     if (event is RegisterButtonPressed) {
-      print("entrei aqui");
       yield RegisterLoadingState();
       try {
         await _registerServices.register(event.user);
