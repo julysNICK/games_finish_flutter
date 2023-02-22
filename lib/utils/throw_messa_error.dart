@@ -47,7 +47,6 @@ class ThrowMessageFieldsUsers {
   }
 
   String throwMessageValidatorFieldsLogin(String email, String password) {
-    print(VerifyFields.isPasswordValid(password));
     if (!VerifyFields.isEmailValid(email)) {
       return ThrowMessage.throwMessage("Email invalid");
     } else if (!VerifyFields.isPasswordValid(password)) {

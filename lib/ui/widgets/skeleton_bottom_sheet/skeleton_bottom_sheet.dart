@@ -117,7 +117,6 @@ class _SkeletonBottomSheetState extends State<SkeletonBottomSheet> {
                             groupValue: defaultIndex,
                             onChanged: (value) {
                               setState(() {
-                                print("entre aqui");
                                 defaultChoice = e.choice;
                                 defaultIndex = e.index;
                               });

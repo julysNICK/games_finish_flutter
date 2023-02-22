@@ -7,13 +7,17 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(LoginInitial()) {
+  LoginBloc() : super(LoginInitial(user: UserApp(email: "", password: ""))) {
     on<LoginEvent>((event, emit) {
       // TODO: implement event handler
     });
 
     on<LoginButtonPressed>((event, emit) async {
-      emit(LoginLoading());
+      emit(LoginLoading(
+          user: UserApp(
+        email: event.email,
+        password: event.password,
+      )));
       try {
         final token = _login(event.email, event.password);
         emit(
@@ -26,7 +30,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           ),
         );
       } catch (error) {
-        emit(LoginFailure(error: error.toString()));
+        emit(LoginFailure(
+            error: error.toString(),
+            user: UserApp(
+              email: "",
+              password: "",
+            )));
       }
     });
   }

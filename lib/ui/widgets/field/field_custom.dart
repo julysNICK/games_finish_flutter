@@ -31,9 +31,6 @@ class FieldCustom extends StatelessWidget {
       child: TextField(
         obscureText: obscureText,
         controller: controller,
-        onChanged: (value) {
-          print(value);
-        },
         decoration: InputDecoration(
           prefixIcon: Icon(
             icon,

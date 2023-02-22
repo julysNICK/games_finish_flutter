@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:games_finish/screens/home/widgets/bottom_bar/bottom_bar.dart';
 import 'package:games_finish/screens/home/widgets/list_grid_items/list_grid_items.dart';
 import 'package:games_finish/screens/home/widgets/tab_view/tab_view.dart';
 
 import '../../ui/theme.dart';
 import '../../ui/widgets/my_bottom_app_bar/my_bottom_app_bar.dart';
+import '../login/bloc/login_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -25,15 +27,19 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0.00),
-                  child: Text(
-                    'FinishLine',
-                    style: TextStyle(
-                        color: AppTheme.textDark,
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold),
-                  ),
+                BlocBuilder<LoginBloc, LoginState>(
+                  builder: (context, LoginState state) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 0.00),
+                      child: Text(
+                        "Hello ${state.user.email.split('@')[0].toString()}, welcome to the FinishLine",
+                        style: const TextStyle(
+                            color: AppTheme.textDark,
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    );
+                  },
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 0.00),
