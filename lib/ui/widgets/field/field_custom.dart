@@ -8,10 +8,12 @@ class FieldCustom extends StatelessWidget {
     this.hintText = "Email",
     this.icon = Icons.email,
     this.controller,
+    this.obscureText = false,
   });
   String hintText;
   IconData icon;
   TextEditingController? controller;
+  bool obscureText = false;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -27,6 +29,7 @@ class FieldCustom extends StatelessWidget {
         ],
       ),
       child: TextField(
+        obscureText: obscureText,
         controller: controller,
         onChanged: (value) {
           print(value);

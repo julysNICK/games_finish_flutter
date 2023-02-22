@@ -114,6 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           controller: _passwordController,
                           hintText: 'Password',
                           icon: Icons.lock,
+                          obscureText: true,
                         ),
                         const SizedBox(
                           height: 20,
@@ -121,6 +122,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         FieldCustom(
                           hintText: 'Confirm Password',
                           icon: Icons.lock,
+                          obscureText: true,
                         ),
                         const SizedBox(
                           height: 20,
