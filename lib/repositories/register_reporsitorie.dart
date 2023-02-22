@@ -2,18 +2,22 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:games_finish/models/user_model.dart';
 
 class RegisterUser {
-  User user;
+  RegisterUser._();
+  static RegisterUser? _instance;
 
-  RegisterUser({required this.user});
+  static RegisterUser? get instance {
+    _instance ??= RegisterUser._();
+    return _instance;
+  }
 
   String returnError(e) {
     return e;
   }
 
-  Future<void> registerUser() async {
+  Future<void> registerUser(User? user) async {
     try {
       await FirebaseFirestore.instance.collection('users').add({
-        'userFullName': user.userFullName,
+        'userFullName': user!.userFullName,
         'userEmail': user.userEmail,
         'userPhone': user.userPhone,
         'userPassword': user.userPassword,

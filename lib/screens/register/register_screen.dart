@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:games_finish/ui/theme.dart';
 import 'package:games_finish/ui/widgets/field/field_custom.dart';
 
+import '../../models/user_model.dart';
+import '../../services/register_services.dart';
 import '../../ui/widgets/button_custom_signin_signup/button_custom_signin_signup.dart';
 import '../../ui/widgets/pain_custom_top/paint_custom_top.dart';
 import '../login/widgets/paint_custom_right/paint_custom_right.dart';
@@ -14,6 +16,11 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _numberPhoneCOntroll = TextEditingController();
+  final RegisterServices _registerServices = RegisterServices();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                 children: [
                   FieldCustom(
+                    controller: _nameController,
                     hintText: 'Name',
                     icon: Icons.person,
                   ),
@@ -73,6 +81,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 20,
                   ),
                   FieldCustom(
+                    controller: _emailController,
                     hintText: 'Email',
                     icon: Icons.email,
                   ),
@@ -80,6 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 20,
                   ),
                   FieldCustom(
+                    controller: _numberPhoneCOntroll,
                     hintText: 'Phone Number',
                     icon: Icons.phone,
                   ),
@@ -87,6 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     height: 20,
                   ),
                   FieldCustom(
+                    controller: _passwordController,
                     hintText: 'Password',
                     icon: Icons.lock,
                   ),
@@ -108,8 +119,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           children: [
                             ButtonCustomSignInSignUp(
                               nameButton: 'Create',
-                              onPressed: () {
-                                Navigator.pop(context);
+                              onPressed: () async {
+                                try {
+                                  await _registerServices.register(
+                                    User(
+                                      userEmail: _emailController.text,
+                                      userPassword: _passwordController.text,
+                                      userFullName: _nameController.text,
+                                      userPhone: _numberPhoneCOntroll.text,
+                                    ),
+                                  );
+                                } catch (e) {
+                                  print(e);
+                                }
                               },
                             ),
                           ],
