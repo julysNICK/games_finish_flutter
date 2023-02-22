@@ -26,7 +26,9 @@ class LoginFailure extends LoginState {
 class LoginSuccess extends LoginState {
   final UserToken token;
 
-  const LoginSuccess({required this.token});
+  final UserApp user;
+
+  const LoginSuccess({required this.token, required this.user});
 
   @override
   List<Object> get props => [token];

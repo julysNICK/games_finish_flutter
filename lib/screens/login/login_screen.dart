@@ -71,26 +71,47 @@ class _LoginScreenState extends State<LoginScreen> {
                   return Form(
                     child: Column(
                       children: [
-                        FieldCustom(),
+                        FieldCustom(
+                          controller: _emailController,
+                        ),
                         const SizedBox(
                           height: 30,
                         ),
                         FieldCustom(
+                          controller: _passwordController,
                           hintText: "Password",
                           icon: Icons.lock,
+                          obscureText: true,
                         ),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        ForgotPassword(),
                         const SizedBox(
                           height: 30,
                         ),
                         if (_isError)
-                          Text(_throwMessageFieldsUsers
-                              .throwMessageVerifyEmptyFields(
-                                  _emailController.text,
-                                  _passwordController.text)),
+                          Text(
+                            _throwMessageFieldsUsers
+                                    .throwMessageVerifyEmptyFields(
+                                        _emailController.text,
+                                        _passwordController.text)
+                                    .isEmpty
+                                ? _throwMessageFieldsUsers
+                                    .throwMessageValidatorFieldsLogin(
+                                        _emailController.text,
+                                        _passwordController.text)
+                                : _throwMessageFieldsUsers
+                                    .throwMessageVerifyEmptyFields(
+                                        _emailController.text,
+                                        _passwordController.text),
+                            style: const TextStyle(
+                                color: Colors.red, fontSize: 14),
+                          ),
+                        if (_isError)
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        ForgotPassword(),
+                        const SizedBox(
+                          height: 30,
+                        ),
                         Stack(
                           children: [
                             Positioned(
@@ -111,10 +132,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                     nameButton: "Sign In",
                                     onPressed: () {
                                       if (_throwMessageFieldsUsers
-                                          .throwMessageVerifyEmptyFields(
-                                              _emailController.text,
-                                              _passwordController.text)
-                                          .isEmpty) {
+                                              .throwMessageVerifyEmptyFields(
+                                                  _emailController.text,
+                                                  _passwordController.text)
+                                              .isEmpty ||
+                                          _throwMessageFieldsUsers
+                                              .throwMessageValidatorFieldsLogin(
+                                                  _emailController.text,
+                                                  _passwordController.text)
+                                              .isEmpty) {
                                         setState(() {
                                           _isError = false;
                                         });
