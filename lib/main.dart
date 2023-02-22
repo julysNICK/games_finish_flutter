@@ -1,12 +1,17 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:games_finish/screens/login/login_screen.dart';
+import 'package:games_finish/screens/register/bloc/register_bloc.dart';
 
 void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
-    runApp(const MyApp());
+    runApp(BlocProvider<RegisterBloc>(
+      create: (context) => RegisterBloc(),
+      child: const MyApp(),
+    ));
   } catch (e) {
     print(e);
     runApp(const ErrorScreen());

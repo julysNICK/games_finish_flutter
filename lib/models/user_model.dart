@@ -10,4 +10,6 @@ class User {
     required this.userPhone,
     required this.userPassword,
   });
+
+  get fullInfo => '$userFullName, $userEmail, $userPhone, $userPassword';
 }
