@@ -8,6 +8,8 @@ import '../../services/register_services.dart';
 import '../../ui/widgets/button_custom_signin_signup/button_custom_signin_signup.dart';
 import '../../ui/widgets/field/field_custom.dart';
 import '../../ui/widgets/pain_custom_top/paint_custom_top.dart';
+import '../../utils/throw_messa_error.dart';
+import '../login/login_screen.dart';
 import '../login/widgets/paint_custom_right/paint_custom_right.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -22,7 +24,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _numberPhoneCOntroll = TextEditingController();
+  bool _isError = false;
   final RegisterServices _registerServices = RegisterServices();
+  final User user = User(
+    userFullName: "",
+    userEmail: "",
+    userPassword: "",
+    userPhone: "",
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,6 +125,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         const SizedBox(
                           height: 20,
                         ),
+                        if (_isError)
+                          Text(
+                            ThrowMessageFieldsUsers(user: user)
+                                    .throwMessageEmpty()
+                                    .isEmpty
+                                ? ThrowMessageFieldsUsers(user: user)
+                                    .throwMessageVerifyFields()
+                                : ThrowMessageFieldsUsers(user: user)
+                                    .throwMessageEmpty(),
+                            style: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 14,
+                            ),
+                          ),
+                        if (state is RegisterLoadingState)
+                          const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                        if (state is RegisterFailureState) Text(state.message),
                         Stack(
                           children: [
                             Container(
@@ -124,21 +153,37 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 children: [
                                   ButtonCustomSignInSignUp(
                                     nameButton: 'Create',
-                                    onPressed: (context) async {
-                                      try {
-                                        await _registerServices.register(
-                                          User(
-                                            userEmail: _emailController.text,
-                                            userPassword:
-                                                _passwordController.text,
-                                            userFullName: _nameController.text,
-                                            userPhone:
-                                                _numberPhoneCOntroll.text,
-                                          ),
-                                        );
-                                      } catch (e) {
-                                        print(e);
+                                    onPressed: () async {
+                                      if (state is RegisterLoadingState) return;
+                                      user.userFullName = _nameController.text;
+                                      user.userEmail = _emailController.text;
+                                      user.userPassword =
+                                          _passwordController.text;
+                                      user.userPhone =
+                                          _numberPhoneCOntroll.text;
+                                      if (ThrowMessageFieldsUsers(user: user)
+                                              .throwMessageEmpty()
+                                              .isEmpty ||
+                                          ThrowMessageFieldsUsers(user: user)
+                                              .throwMessageVerifyFields()
+                                              .isEmpty) {
+                                        setState(() {
+                                          _isError = false;
+                                        });
+                                        BlocProvider.of<RegisterBloc>(context)
+                                            .add(RegisterButtonPressed(
+                                                user: user));
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const LoginScreen()));
                                       }
+                                      ThrowMessageFieldsUsers(user: user)
+                                          .throwMessageEmpty();
+                                      setState(() {
+                                        _isError = true;
+                                      });
                                     },
                                   ),
                                 ],
@@ -154,7 +199,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                           ],
-                        )
+                        ),
                       ],
                     ),
                   );
