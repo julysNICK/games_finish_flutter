@@ -3,13 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:games_finish/screens/login/bloc/login_bloc.dart';
 import 'package:games_finish/screens/login/login_screen.dart';
+import 'package:games_finish/screens/register/bloc/register_bloc.dart';
 
 void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
-    runApp(BlocProvider<LoginBloc>(
-      create: (context) => LoginBloc(),
+
+    runApp(MultiBlocProvider(
+      providers: [
+        BlocProvider<LoginBloc>(
+          create: (context) => LoginBloc(),
+          child: const MyApp(),
+        ),
+        BlocProvider<RegisterBloc>(
+          create: (context) => RegisterBloc(),
+          child: const MyApp(),
+        ),
+      ],
       child: const MyApp(),
     ));
   } catch (e) {

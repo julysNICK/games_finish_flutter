@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:games_finish/screens/home/widgets/bottom_bar/bottom_bar.dart';
 import 'package:games_finish/screens/home/widgets/list_grid_items/list_grid_items.dart';
 import 'package:games_finish/screens/home/widgets/tab_view/tab_view.dart';
+import 'package:games_finish/screens/login/bloc/login_bloc.dart';
 
 import '../../ui/theme.dart';
 import '../../ui/widgets/my_bottom_app_bar/my_bottom_app_bar.dart';
-import '../login/bloc/login_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
