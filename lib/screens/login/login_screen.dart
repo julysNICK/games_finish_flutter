@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:games_finish/screens/login/widgets/forgot_password/forgot_password.dart';
 import 'package:games_finish/ui/widgets/pain_custom_top/paint_custom_top.dart';
 import 'package:games_finish/screens/login/widgets/paint_custom_right/paint_custom_right.dart';
@@ -139,12 +140,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 children: [
                                   ButtonCustomSignInSignUp(
                                     nameButton: "Sign In",
-                                    onPressed: () {
+                                    onPressed: () async {
+                                      const storage = FlutterSecureStorage();
+
                                       if (_throwMessageFieldsUsers
                                               .throwMessageVerifyEmptyFields(
                                                   _emailController.text,
                                                   _passwordController.text)
-                                              .isEmpty ||
+                                              .isEmpty &&
                                           _throwMessageFieldsUsers
                                               .throwMessageValidatorFieldsLogin(
                                                   _emailController.text,
@@ -160,6 +163,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                         );
                                         if (state is LoginSuccess) {
+                                          await storage.write(
+                                              key: "token",
+                                              value: state.token.token);
                                           Navigator.push(
                                             context,
                                             MaterialPageRoute(
@@ -168,6 +174,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                           );
                                         }
+
+                                        if (state is LoginFailure) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(state.error),
+                                            ),
+                                          );
+                                        }
+
                                         return;
                                       }
                                       setState(() {

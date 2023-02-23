@@ -39,7 +39,7 @@ class LoginSuccess extends LoginState {
   LoginSuccess({required this.token, required this.user}) : super(user: user);
 
   @override
-  List<Object> get props => [token];
+  List<Object> get props => [token, user];
 
   @override
   String toString() => 'LoginSuccess { token: $token }';

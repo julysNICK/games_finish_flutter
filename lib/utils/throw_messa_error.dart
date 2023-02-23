@@ -14,7 +14,6 @@ class ThrowMessageFieldsUsers {
 
   String throwMessageEmpty() {
     if (user!.userFullName.isEmpty) {
-      print("entrei aquidwqdqw");
       return ThrowMessage.throwMessage("Full Name is empty");
     } else if (user!.userEmail.isEmpty) {
       return ThrowMessage.throwMessage("Email is empty");
@@ -26,13 +25,16 @@ class ThrowMessageFieldsUsers {
     return "";
   }
 
-  String throwMessageVerifyFields() {
+  String throwMessageVerifyFields(String confirmPassword) {
     if (!VerifyFields.isEmailValid(user!.userEmail)) {
       return ThrowMessage.throwMessage("Email is invalid");
     } else if (!VerifyFields.isPasswordValid(user!.userPassword)) {
       return ThrowMessage.throwMessage("Password is invalid");
     } else if (!VerifyFields.isPhoneValid(user!.userPhone)) {
       return ThrowMessage.throwMessage("Number Phone is invalid");
+    } else if (!VerifyFields.isPasswordEqual(
+        user!.userPassword, confirmPassword)) {
+      return ThrowMessage.throwMessage("Password is not equal");
     }
     return "";
   }

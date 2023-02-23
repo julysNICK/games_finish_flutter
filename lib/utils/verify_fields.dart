@@ -30,4 +30,8 @@ class VerifyFields {
   static bool isPhoneEmpty(String phone) {
     return phone.isEmpty;
   }
+
+  static bool isPasswordEqual(String password, String confirmPassword) {
+    return password == confirmPassword;
+  }
 }

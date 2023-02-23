@@ -8,6 +8,7 @@ import '../../services/register_services.dart';
 import '../../ui/widgets/button_custom_signin_signup/button_custom_signin_signup.dart';
 import '../../ui/widgets/field/field_custom.dart';
 import '../../ui/widgets/pain_custom_top/paint_custom_top.dart';
+
 import '../../utils/throw_messa_error.dart';
 import '../login/login_screen.dart';
 import '../login/widgets/paint_custom_right/paint_custom_right.dart';
@@ -24,6 +25,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _numberPhoneCOntroll = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   bool _isError = false;
   final RegisterServices _registerServices = RegisterServices();
   final User user = User(
@@ -120,6 +123,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           height: 20,
                         ),
                         FieldCustom(
+                          controller: _confirmPasswordController,
                           hintText: 'Confirm Password',
                           icon: Icons.lock,
                           obscureText: true,
@@ -133,7 +137,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     .throwMessageEmpty()
                                     .isEmpty
                                 ? ThrowMessageFieldsUsers(user: user)
-                                    .throwMessageVerifyFields()
+                                    .throwMessageVerifyFields(
+                                        _confirmPasswordController.text)
                                 : ThrowMessageFieldsUsers(user: user)
                                     .throwMessageEmpty(),
                             style: const TextStyle(
@@ -167,7 +172,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                               .throwMessageEmpty()
                                               .isEmpty ||
                                           ThrowMessageFieldsUsers(user: user)
-                                              .throwMessageVerifyFields()
+                                              .throwMessageVerifyFields(
+                                                  _confirmPasswordController
+                                                      .text)
                                               .isEmpty) {
                                         setState(() {
                                           _isError = false;
