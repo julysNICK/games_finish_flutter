@@ -26,15 +26,28 @@ class GamesRepo {
     return [];
   }
 
-  Future<void> createGame(String? name, String? description) async {
+  Future<void> createGame(String? name, String? status) async {
     try {
       await FirebaseFirestore.instance.collection('games').add({
         'name': name,
-        'description': description,
+        'status': status,
       });
     } catch (e) {
       print(e);
       returnError(e);
     }
+  }
+
+  Future<List<Map<String, dynamic>>> getAllGames() async {
+    try {
+      QuerySnapshot<Map<String, dynamic>> response =
+          await FirebaseFirestore.instance.collection('games').get();
+
+      return response.docs.map((e) => e.data()).toList();
+    } catch (e) {
+      print(e);
+      returnError(e);
+    }
+    return [];
   }
 }

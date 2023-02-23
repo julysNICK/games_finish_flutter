@@ -16,6 +16,15 @@ class ProductAdd extends ProductEvent {
   List<Object> get props => [games];
 }
 
+class ProductAddInFirebase extends ProductEvent {
+  final GameModel games;
+
+  const ProductAddInFirebase({required this.games});
+
+  @override
+  List<Object> get props => [games];
+}
+
 class ProductRemove extends ProductEvent {
   final GameModel games;
 
@@ -33,3 +42,5 @@ class ListProductByStatus extends ProductEvent {
   @override
   List<Object> get props => [status];
 }
+
+class GetAllProducts extends ProductEvent {}
