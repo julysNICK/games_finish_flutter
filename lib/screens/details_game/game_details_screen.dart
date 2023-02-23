@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
 class DetailsGameScreen extends StatefulWidget {
-  const DetailsGameScreen({super.key});
+  String imagePath = 'assets/download.jpeg';
+  String title = 'The witcher 3';
+  String status = 'Completed';
+
+  DetailsGameScreen(
+      {super.key,
+      this.imagePath = 'assets/download.jpeg',
+      this.title = 'The witcher 3',
+      this.status = 'Completed'});
 
   @override
   State<DetailsGameScreen> createState() => _DetailsGameScreenState();
@@ -15,8 +23,8 @@ class _DetailsGameScreenState extends State<DetailsGameScreen> {
         height: MediaQuery.of(context).size.height,
         width: double.infinity,
         decoration: BoxDecoration(
-          image: const DecorationImage(
-            image: AssetImage('assets/download.jpeg'),
+          image: DecorationImage(
+            image: AssetImage(widget.imagePath),
             fit: BoxFit.cover,
           ),
           boxShadow: [
@@ -78,9 +86,9 @@ class _DetailsGameScreenState extends State<DetailsGameScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const Text(
-                      'The witcher 3: Wild Hunt',
-                      style: TextStyle(
+                    Text(
+                      widget.title,
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 30,
                         fontWeight: FontWeight.bold,
@@ -89,43 +97,34 @@ class _DetailsGameScreenState extends State<DetailsGameScreen> {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Text(
-                      'Action, Adventure, Horror',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
+
                     Row(
-                      children: const [
-                        Icon(
+                      children: [
+                        const Icon(
                           Icons.perm_device_information_sharp,
                           color: Colors.white,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Text(
-                          'In progress',
-                          style: TextStyle(
+                          widget.status,
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 15,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        Icon(
+                        const Icon(
                           Icons.access_time_filled,
                           color: Colors.white,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
-                        Text(
+                        const Text(
                           '2h 30m hours played',
                           style: TextStyle(
                             color: Colors.white,

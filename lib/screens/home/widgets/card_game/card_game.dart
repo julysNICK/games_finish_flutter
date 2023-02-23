@@ -21,7 +21,11 @@ class CardGame extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const DetailsGameScreen(),
+            builder: (context) => DetailsGameScreen(
+              imagePath: imagePath,
+              title: title,
+              status: status,
+            ),
           ),
         );
       },
