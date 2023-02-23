@@ -3,8 +3,15 @@ import 'package:flutter/material.dart';
 import '../../../details_game/game_details_screen.dart';
 
 class CardGame extends StatelessWidget {
-  const CardGame({
+  String imagePath = 'assets/download.jpeg';
+  String title = 'The witcher 3';
+  String status = 'Completed';
+
+  CardGame({
     super.key,
+    this.imagePath = 'assets/download.jpeg',
+    this.title = 'The witcher 3',
+    this.status = 'Completed',
   });
 
   @override
@@ -40,9 +47,9 @@ class CardGame extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const InkWell(
+            InkWell(
               child: Image(
-                image: AssetImage('assets/download.jpeg'),
+                image: AssetImage(imagePath),
                 height: 100,
               ),
             ),
@@ -55,9 +62,9 @@ class CardGame extends StatelessWidget {
                   top: 2.00,
                 ),
                 alignment: Alignment.centerLeft,
-                child: const Text(
-                  'The witcher 3',
-                  style: TextStyle(
+                child: Text(
+                  title,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -101,18 +108,18 @@ class CardGame extends StatelessWidget {
             // )
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              children: const [
+              children: [
                 Text(
-                  "Status: Platinum",
-                  style: TextStyle(
+                  "Status: $status",
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 15,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 5,
                 ),
-                Icon(
+                const Icon(
                   Icons.diamond_outlined,
                   color: Colors.green,
                   size: 15,

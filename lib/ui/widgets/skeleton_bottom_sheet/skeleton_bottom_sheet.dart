@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:games_finish/models/game_model.dart';
 import 'package:games_finish/ui/widgets/field/field_custom.dart';
 
+import '../../../screens/home/bloc/product_bloc.dart';
 import '../../theme.dart';
 
 class MyChoices {
@@ -18,6 +21,8 @@ class SkeletonBottomSheet extends StatefulWidget {
 }
 
 class _SkeletonBottomSheetState extends State<SkeletonBottomSheet> {
+  final TextEditingController _titleController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     String defaultChoice = 'In progress';
@@ -29,9 +34,16 @@ class _SkeletonBottomSheetState extends State<SkeletonBottomSheet> {
       MyChoices(choice: 'Platinum', index: 2),
     ];
 
+    addGame() {
+      BlocProvider.of<ProductBloc>(context).add(ProductAdd(
+          games: GameModel(
+              image: "", title: _titleController.text, status: "In progress")));
+    }
+
     return DraggableScrollableSheet(
       initialChildSize: 1,
       builder: (context, scrollController) {
+        print(defaultChoice);
         return SingleChildScrollView(
           child: Container(
             decoration: const BoxDecoration(
@@ -75,22 +87,9 @@ class _SkeletonBottomSheetState extends State<SkeletonBottomSheet> {
                   height: 20,
                 ),
                 FieldCustom(
+                  controller: _titleController,
                   hintText: 'Game name',
                   icon: Icons.gamepad,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                FieldCustom(
-                  hintText: 'Game platform',
-                  icon: Icons.videogame_asset,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                FieldCustom(
-                  hintText: 'Game genre',
-                  icon: Icons.category,
                 ),
                 const SizedBox(
                   height: 20,
@@ -116,8 +115,11 @@ class _SkeletonBottomSheetState extends State<SkeletonBottomSheet> {
                             value: e.index,
                             groupValue: defaultIndex,
                             onChanged: (value) {
+                              print("chamei");
+                              print(value);
+                              print(e);
                               setState(() {
-                                defaultChoice = e.choice;
+                                defaultChoice = value.toString();
                                 defaultIndex = e.index;
                               });
                             },
@@ -130,7 +132,10 @@ class _SkeletonBottomSheetState extends State<SkeletonBottomSheet> {
                   height: 20,
                 ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    addGame();
+                    // Navigator.pop(context);
+                  },
                   child: const Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text('Add game', style: TextStyle(fontSize: 20)),

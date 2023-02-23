@@ -7,6 +7,7 @@ import 'package:games_finish/screens/login/bloc/login_bloc.dart';
 
 import '../../ui/theme.dart';
 import '../../ui/widgets/my_bottom_app_bar/my_bottom_app_bar.dart';
+import 'bloc/product_bloc.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -68,7 +69,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: const BottomBarNav(),
+      floatingActionButton: BlocBuilder<ProductBloc, ProductState>(
+        builder: (context, state) {
+          return const BottomBarNav();
+        },
+      ),
       extendBody: true,
       bottomNavigationBar: MyBottomAppBarNav(context: context),
     );
