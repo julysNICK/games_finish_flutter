@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../../../ui/widgets/skeleton_bottom_sheet/skeleton_bottom_sheet.dart';
 
-class BottomBarNav extends StatelessWidget {
-  const BottomBarNav({
-    super.key,
-  });
+class BottomBarNav extends StatefulWidget {
+  const BottomBarNav({super.key});
 
+  @override
+  State<BottomBarNav> createState() => _BottomBarNavState();
+}
+
+class _BottomBarNavState extends State<BottomBarNav> {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(

@@ -23,11 +23,10 @@ class SkeletonBottomSheet extends StatefulWidget {
 class _SkeletonBottomSheetState extends State<SkeletonBottomSheet> {
   final TextEditingController _titleController = TextEditingController();
 
+  String defaultChoice = 'In progress';
+  int defaultIndex = 0;
   @override
   Widget build(BuildContext context) {
-    String defaultChoice = 'In progress';
-    int defaultIndex = 0;
-
     List<MyChoices> choices = <MyChoices>[
       MyChoices(choice: 'In progress', index: 0),
       MyChoices(choice: 'Finished', index: 1),
@@ -37,13 +36,12 @@ class _SkeletonBottomSheetState extends State<SkeletonBottomSheet> {
     addGame() {
       BlocProvider.of<ProductBloc>(context).add(ProductAdd(
           games: GameModel(
-              image: "", title: _titleController.text, status: "In progress")));
+              image: "", title: _titleController.text, status: defaultChoice)));
     }
 
     return DraggableScrollableSheet(
       initialChildSize: 1,
       builder: (context, scrollController) {
-        print(defaultChoice);
         return SingleChildScrollView(
           child: Container(
             decoration: const BoxDecoration(
@@ -100,6 +98,7 @@ class _SkeletonBottomSheetState extends State<SkeletonBottomSheet> {
                         (e) => Flexible(
                           flex: 1,
                           child: RadioListTile(
+                            toggleable: true,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -115,11 +114,8 @@ class _SkeletonBottomSheetState extends State<SkeletonBottomSheet> {
                             value: e.index,
                             groupValue: defaultIndex,
                             onChanged: (value) {
-                              print("chamei");
-                              print(value);
-                              print(e);
                               setState(() {
-                                defaultChoice = value.toString();
+                                defaultChoice = e.choice;
                                 defaultIndex = e.index;
                               });
                             },
