@@ -27,53 +27,63 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: DefaultTabController(
-        length: 3,
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                BlocBuilder<LoginBloc, LoginState>(
-                  builder: (context, LoginState state) {
-                    return Padding(
+      body: BlocBuilder<ProductBloc, ProductState>(
+        builder: (context, state) {
+          if (state is ProductLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return DefaultTabController(
+            length: 3,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    BlocBuilder<LoginBloc, LoginState>(
+                      builder: (context, LoginState state) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 0.00),
+                          child: Text(
+                            "Hello ${state.user.email.split('@')[0].toString()}, welcome to the FinishLine",
+                            style: const TextStyle(
+                                color: AppTheme.textDark,
+                                fontSize: 32,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        );
+                      },
+                    ),
+                    Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 0.00),
                       child: Text(
-                        "Hello ${state.user.email.split('@')[0].toString()}, welcome to the FinishLine",
-                        style: const TextStyle(
-                            color: AppTheme.textDark,
-                            fontSize: 32,
-                            fontWeight: FontWeight.bold),
+                        'the best way to store your finished games',
+                        style: TextStyle(
+                          color: AppTheme.textDark.withOpacity(0.5),
+                          fontSize: 15,
+                        ),
                       ),
-                    );
-                  },
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 0.00),
-                  child: Text(
-                    'the best way to store your finished games',
-                    style: TextStyle(
-                      color: AppTheme.textDark.withOpacity(0.5),
-                      fontSize: 15,
                     ),
-                  ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const TabBarViewHome(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    const Flexible(
+                      flex: 1,
+                      child: ListGridItems(),
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const TabBarViewHome(),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Flexible(
-                  flex: 1,
-                  child: ListGridItems(),
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: BlocBuilder<ProductBloc, ProductState>(

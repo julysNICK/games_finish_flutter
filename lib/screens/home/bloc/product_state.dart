@@ -15,7 +15,11 @@ class ProductInitial extends ProductState {
   const ProductInitial({this.games = const []});
 }
 
-class ProductLoading extends ProductState {}
+class ProductLoading extends ProductState {
+  bool isLoading;
+
+  ProductLoading({this.isLoading = true});
+}
 
 class ProductAddState extends ProductState {
   @override

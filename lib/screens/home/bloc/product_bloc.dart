@@ -25,8 +25,9 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     });
 
     on<GetAllProducts>((event, emit) async {
-      print("chame event");
-      emit(ProductLoading());
+      emit(ProductLoading(
+        isLoading: true,
+      ));
       try {
         final gamesAll = await GameService().getAllGames();
         for (var element in gamesAll) {
