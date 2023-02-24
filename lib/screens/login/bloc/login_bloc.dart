@@ -14,26 +14,19 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
 
     on<LoginButtonPressed>((event, emit) async {
-      print("entrei no bloc");
       emit(LoginLoading());
 
       try {
         await LoginServices().register(event.email, event.password);
 
-        // emit(
-        //   LoginSuccess(
-        //     token: UserToken(
-        //       refreshToken: jwtToken,
-        //       token: jwtToken,
-        //     ),
-        //     user: UserApp(email: event.email, password: event.password),
-        //   ),
-        // );
+        emit(
+          LoginSuccess(
+            user: UserApp(email: event.email, password: event.password),
+          ),
+        );
       } catch (error) {
-        print("ewntrwe no catch");
-        print(error);
         emit(LoginFailure(
-          error: "error",
+          error: "Erro ao logar verifique seus dados",
         ));
       }
     });

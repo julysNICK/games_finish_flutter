@@ -12,8 +12,7 @@ class RegisterServices {
 
   Future<void> register(User user) async {
     try {
-      RegisterUser.registerUserInDatabase(user);
-      RegisterUser.signUpUser(user);
+      await RegisterUser.signUpUser(user);
     } catch (e) {
       throw Exception('Failed to register');
     }

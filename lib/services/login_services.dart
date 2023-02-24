@@ -11,11 +11,10 @@ class LoginServices {
 
   Future<void> register(String email, String password) async {
     try {
-      bool? user = await LoginRepo().loginUser(email, password);
+      // bool? user = await LoginRepo().loginUser(email, password);
       await LoginRepo.signinUser(email, password);
-      print(user);
     } catch (e) {
-      throw Exception('Failed to register');
+      rethrow;
     }
   }
 
@@ -23,7 +22,7 @@ class LoginServices {
     try {
       await LoginRepo.signOut();
     } catch (e) {
-      throw Exception('Failed to sign out');
+      rethrow;
     }
   }
 }

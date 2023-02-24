@@ -15,13 +15,10 @@ class RegisterUser {
     return e;
   }
 
-  static Future<void> registerUserInDatabase(UserModel.User? user) async {
+  static Future<void> registerUserInDatabase(UserModel.User? user, uid) async {
     try {
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user!.userUid)
-          .set({
-        'userFullName': user.userFullName,
+      await FirebaseFirestore.instance.collection('users').doc(uid).set({
+        'userFullName': user!.userFullName,
         'userEmail': user.userEmail,
         'userPhone': user.userPhone,
         'userPassword': user.userUid,
@@ -31,18 +28,18 @@ class RegisterUser {
     }
   }
 
-  static signUpUser(UserModel.User? user) async {
+  static signUpUser(UserModel.User? userApp) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
-              email: user!.userEmail, password: user.userPassword);
+              email: userApp!.userEmail, password: userApp.userPassword);
 
       if (userCredential.user != null) {
-        await userCredential.user!.updateDisplayName(user.userFullName);
-        await userCredential.user!.updateEmail(user.userEmail);
-        await userCredential.user!.updatePassword(user.userPassword);
-        print(user.fullInfo);
-        await registerUserInDatabase(user);
+        await userCredential.user!.updateDisplayName(userApp.userFullName);
+        await userCredential.user!.updateEmail(userApp.userEmail);
+        await userCredential.user!.updatePassword(userApp.userPassword);
+
+        await registerUserInDatabase(userApp, userCredential.user!.uid);
         await userCredential.user!.reload();
         await userCredential.user
             ?.sendEmailVerification()
