@@ -34,6 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     userEmail: "",
     userPassword: "",
     userPhone: "",
+    userUid: "",
   );
 
   @override

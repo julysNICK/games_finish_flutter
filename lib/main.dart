@@ -10,7 +10,7 @@ void main() async {
   try {
     WidgetsFlutterBinding.ensureInitialized();
     await Firebase.initializeApp();
-
+    // await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
     runApp(MultiBlocProvider(
       providers: [
         BlocProvider<LoginBloc>(
