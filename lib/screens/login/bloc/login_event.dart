@@ -23,3 +23,7 @@ class LoginButtonPressed extends LoginEvent {
   String toString() =>
       'LoginButtonPressed { email: $email, password: $password }';
 }
+
+class SignOutButtonPressed extends LoginEvent {
+  const SignOutButtonPressed();
+}

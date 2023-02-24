@@ -3,6 +3,8 @@ part of 'login_bloc.dart';
 abstract class LoginState extends Equatable {
   final UserApp user = UserApp(email: "", password: "");
   final UserToken token = UserToken(token: "", refreshToken: "");
+  final String error = "";
+
   LoginState();
 
   @override
@@ -10,8 +12,11 @@ abstract class LoginState extends Equatable {
 }
 
 class LoginInitial extends LoginState {
+  @override
   UserApp user;
-  LoginInitial({required this.user});
+  @override
+  String error = "";
+  LoginInitial({required this.user, this.error = ""});
 }
 
 class LoginLoading extends LoginState {
@@ -19,6 +24,7 @@ class LoginLoading extends LoginState {
 }
 
 class LoginFailure extends LoginState {
+  @override
   final String error;
 
   LoginFailure({required this.error});
@@ -31,6 +37,7 @@ class LoginFailure extends LoginState {
 }
 
 class LoginSuccess extends LoginState {
+  @override
   final UserToken token;
 
   @override
@@ -43,4 +50,8 @@ class LoginSuccess extends LoginState {
 
   @override
   String toString() => 'LoginSuccess { token: $token }';
+}
+
+class SignOutSuccess extends LoginState {
+  SignOutSuccess();
 }

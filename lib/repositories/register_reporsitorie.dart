@@ -41,6 +41,7 @@ class RegisterUser {
         await userCredential.user!.updateDisplayName(user.userFullName);
         await userCredential.user!.updateEmail(user.userEmail);
         await userCredential.user!.updatePassword(user.userPassword);
+        print(user.fullInfo);
         await registerUserInDatabase(user);
         await userCredential.user!.reload();
         await userCredential.user

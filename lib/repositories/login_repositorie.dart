@@ -41,11 +41,22 @@ class LoginRepo {
         email: email,
         password: password,
       );
-      print('User signed in');
     } catch (e) {
       print(e);
       returnError(e);
       print('User not signed in');
+      rethrow;
+    }
+  }
+
+  static signOut() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+      print('User signed out');
+    } catch (e) {
+      print(e);
+      returnError(e);
+      print('User not signed out');
       rethrow;
     }
   }

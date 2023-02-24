@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:games_finish/screens/home/bloc/product_bloc.dart';
 import 'package:games_finish/screens/home_or_login.dart/home_or_login_screen.dart';
 import 'package:games_finish/screens/login/bloc/login_bloc.dart';
+import 'package:games_finish/screens/login/login_screen.dart';
 import 'package:games_finish/screens/register/bloc/register_bloc.dart';
 
 void main() async {
@@ -15,7 +16,7 @@ void main() async {
       providers: [
         BlocProvider<LoginBloc>(
           create: (context) => LoginBloc(),
-          child: const MyApp(),
+          child: const LoginScreen(),
         ),
         BlocProvider<RegisterBloc>(
           create: (context) => RegisterBloc(),

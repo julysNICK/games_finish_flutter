@@ -9,14 +9,21 @@ class LoginServices {
 
   LoginServices._internal();
 
-  Future<bool> register(String email, String password) async {
+  Future<void> register(String email, String password) async {
     try {
       bool? user = await LoginRepo().loginUser(email, password);
       await LoginRepo.signinUser(email, password);
       print(user);
-      return user!;
     } catch (e) {
       throw Exception('Failed to register');
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      await LoginRepo.signOut();
+    } catch (e) {
+      throw Exception('Failed to sign out');
     }
   }
 }
