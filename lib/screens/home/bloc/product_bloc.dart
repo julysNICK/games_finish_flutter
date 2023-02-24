@@ -11,9 +11,11 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ProductBloc() : super(const ProductInitial()) {
     on<ProductAdd>((event, emit) async {
       emit(ProductLoading());
+
       try {
         await GameService().createGame(event.games.title, event.games.status);
         gamesList.add(event.games);
+
         emit(
           ProductAddState(
             games: gamesList,
@@ -25,11 +27,13 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     });
 
     on<GetAllProducts>((event, emit) async {
+      print("GetAllProducts");
       emit(ProductLoading(
         isLoading: true,
       ));
       try {
         final gamesAll = await GameService().getAllGames();
+
         for (var element in gamesAll) {
           gamesList.add(GameModel(
             image: "assets/images/ps5.png",

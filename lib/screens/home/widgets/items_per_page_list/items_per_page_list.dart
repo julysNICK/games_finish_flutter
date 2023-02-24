@@ -14,9 +14,9 @@ class ItemsPerPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ProductBloc, ProductState>(
       builder: (context, state) {
-        if (state.games.isEmpty) {
-          context.read<ProductBloc>().add(GetAllProducts());
-        }
+        print("stateLenghGames: ${state.games.length}");
+        print(state.games.toList());
+
         return GridView.builder(
           cacheExtent: 1000,
           shrinkWrap: true,

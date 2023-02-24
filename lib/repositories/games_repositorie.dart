@@ -28,10 +28,9 @@ class GamesRepo {
 
   Future<void> createGame(String? name, String? status) async {
     try {
-      await FirebaseFirestore.instance.collection('games').add({
-        'name': name,
-        'status': status,
-      });
+      await FirebaseFirestore.instance
+          .collection('games')
+          .add({'name': name, 'status': status});
     } catch (e) {
       print(e);
       returnError(e);

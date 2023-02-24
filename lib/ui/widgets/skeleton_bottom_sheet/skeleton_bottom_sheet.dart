@@ -36,7 +36,10 @@ class _SkeletonBottomSheetState extends State<SkeletonBottomSheet> {
     addGame() {
       BlocProvider.of<ProductBloc>(context).add(ProductAdd(
           games: GameModel(
-              image: "", title: _titleController.text, status: defaultChoice)));
+        image: "",
+        title: _titleController.text,
+        status: defaultChoice,
+      )));
     }
 
     return DraggableScrollableSheet(

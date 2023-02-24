@@ -58,7 +58,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               name: token.displayName ?? token.displayName.toString(),
               numberPhoneUser:
                   token.phoneNumber ?? token.phoneNumber.toString(),
-              uid: token.uid ?? token.uid.toString(),
+              uid: token.uid,
             ),
           ));
         } else {
