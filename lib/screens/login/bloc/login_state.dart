@@ -1,27 +1,27 @@
 part of 'login_bloc.dart';
 
 abstract class LoginState extends Equatable {
-  UserApp user;
-
-  LoginState({required this.user});
+  final UserApp user = UserApp(email: "", password: "");
+  final UserToken token = UserToken(token: "", refreshToken: "");
+  LoginState();
 
   @override
   List<Object> get props => [];
 }
 
 class LoginInitial extends LoginState {
-  LoginInitial({required UserApp user}) : super(user: user);
+  UserApp user;
+  LoginInitial({required this.user});
 }
 
 class LoginLoading extends LoginState {
-  LoginLoading({required UserApp user}) : super(user: user);
+  LoginLoading();
 }
 
 class LoginFailure extends LoginState {
   final String error;
 
-  LoginFailure({required this.error, required UserApp user})
-      : super(user: user);
+  LoginFailure({required this.error});
 
   @override
   List<Object> get props => [error];
@@ -36,7 +36,7 @@ class LoginSuccess extends LoginState {
   @override
   final UserApp user;
 
-  LoginSuccess({required this.token, required this.user}) : super(user: user);
+  LoginSuccess({required this.token, required this.user});
 
   @override
   List<Object> get props => [token, user];

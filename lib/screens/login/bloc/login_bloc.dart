@@ -15,11 +15,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
 
     on<LoginButtonPressed>((event, emit) async {
-      emit(LoginLoading(
-          user: UserApp(
-        email: event.email,
-        password: event.password,
-      )));
+      emit(LoginLoading());
       try {
         final bool token =
             await LoginServices().register(event.email, event.password);
@@ -27,25 +23,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         final String jwtToken = JwtServices(
                 user: UserToken(token: event.email, refreshToken: "teste1"))
             .senderCreateJwt();
-
-        if (token == true) {
-          emit(
-            LoginSuccess(
-              token: UserToken(
-                refreshToken: jwtToken,
-                token: jwtToken,
-              ),
-              user: UserApp(email: event.email, password: event.password),
+        print("disparei esse state");
+        emit(
+          LoginSuccess(
+            token: UserToken(
+              refreshToken: jwtToken,
+              token: jwtToken,
             ),
-          );
-        }
+            user: UserApp(email: event.email, password: event.password),
+          ),
+        );
+        print("já disparei esse state");
       } catch (error) {
         emit(LoginFailure(
-            error: error.toString(),
-            user: UserApp(
-              email: "",
-              password: "",
-            )));
+          error: error.toString(),
+        ));
       }
     });
   }

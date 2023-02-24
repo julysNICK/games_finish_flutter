@@ -25,6 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void dispose() {
+    _productBloc.close();
+    context.read<ProductBloc>().close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<ProductBloc, ProductState>(

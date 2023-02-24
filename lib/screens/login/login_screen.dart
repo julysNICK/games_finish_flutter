@@ -162,18 +162,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                             password: _passwordController.text,
                                           ),
                                         );
-                                        if (state is LoginSuccess) {
-                                          await storage.write(
-                                              key: "token",
-                                              value: state.token.token);
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) =>
-                                                  const HomeScreen(),
-                                            ),
-                                          );
-                                        }
+                                        print(
+                                            "entrei aqui ainda n]ao no if $state");
+
+                                        await storage.write(
+                                            key: "token",
+                                            value: state.token.token);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const HomeScreen(),
+                                          ),
+                                        );
 
                                         if (state is LoginFailure) {
                                           ScaffoldMessenger.of(context)
