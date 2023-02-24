@@ -47,7 +47,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
 
     on<InitScreenHomeLoading>((event, emit) async {
-      print("dentro do bloc");
       emit(LoginLoading());
       try {
         final User? token = await LoginServices().getToken();

@@ -22,7 +22,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: SafeArea(
           child: BlocBuilder<LoginBloc, LoginState>(
             builder: (context, state) {
-              print(state.user.uid);
               return Column(
                 children: [
                   const SizedBox(
