@@ -1,5 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+
+import '../home/home_screen.dart';
+import '../login/login_screen.dart';
 
 class HomeOrLoginScreen extends StatefulWidget {
   const HomeOrLoginScreen({super.key});
@@ -11,6 +16,27 @@ class HomeOrLoginScreen extends StatefulWidget {
 class _HomeOrLoginScreenState extends State<HomeOrLoginScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return StreamBuilder(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Scaffold(
+            body: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        } else if (snapshot.hasData) {
+          return const HomeScreen();
+        } else if (snapshot.hasError) {
+          return const Scaffold(
+            body: Center(
+              child: Text('Error'),
+            ),
+          );
+        } else {
+          return const LoginScreen();
+        }
+      },
+    );
   }
 }

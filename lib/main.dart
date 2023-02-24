@@ -2,8 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:games_finish/screens/home/bloc/product_bloc.dart';
+import 'package:games_finish/screens/home_or_login.dart/home_or_login_screen.dart';
 import 'package:games_finish/screens/login/bloc/login_bloc.dart';
-import 'package:games_finish/screens/login/login_screen.dart';
 import 'package:games_finish/screens/register/bloc/register_bloc.dart';
 
 void main() async {
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter Demo',
-      home: LoginScreen(),
+      home: HomeOrLoginScreen(),
     );
   }
 }
