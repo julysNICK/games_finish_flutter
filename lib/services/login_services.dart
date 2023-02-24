@@ -12,6 +12,7 @@ class LoginServices {
   Future<bool> register(String email, String password) async {
     try {
       bool? user = await LoginRepo().loginUser(email, password);
+      await LoginRepo.signinUser(email, password);
       print(user);
       return user!;
     } catch (e) {

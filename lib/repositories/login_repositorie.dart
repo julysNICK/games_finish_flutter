@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginRepo {
   static final LoginRepo _instance = LoginRepo._internal();
@@ -9,7 +10,7 @@ class LoginRepo {
 
   LoginRepo._internal();
 
-  String returnError(e) {
+  static String returnError(e) {
     return e;
   }
 
@@ -24,7 +25,6 @@ class LoginRepo {
           .instance
           .collection('users')
           .where('userEmail', isEqualTo: email)
-          .where('userPassword', isEqualTo: password)
           .get();
 
       return response.docs.isNotEmpty;
@@ -33,5 +33,20 @@ class LoginRepo {
       returnError(e);
     }
     return null;
+  }
+
+  static signinUser(String email, String password) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      print('User signed in');
+    } catch (e) {
+      print(e);
+      returnError(e);
+      print('User not signed in');
+      rethrow;
+    }
   }
 }

@@ -18,18 +18,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final ProductBloc _productBloc = ProductBloc();
-  @override
-  void initState() {
-    super.initState();
-    context.read<ProductBloc>().add(GetAllProducts());
-  }
-
-  @override
-  void dispose() {
-    _productBloc.close();
-    context.read<ProductBloc>().close();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
