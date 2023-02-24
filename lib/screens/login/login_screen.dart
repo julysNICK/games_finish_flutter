@@ -24,7 +24,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final ThrowMessageFieldsUsers _throwMessageFieldsUsers =
       ThrowMessageFieldsUsers();
-  final bool _isError = false;
+  bool _isError = false;
 
   @override
   void dispose() {
@@ -161,55 +161,50 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ButtonCustomSignInSignUp(
                                       nameButton: "Sign In",
                                       onPressed: () async {
-                                        // if (_throwMessageFieldsUsers
-                                        //         .throwMessageVerifyEmptyFields(
-                                        //             _emailController.text,
-                                        //             _passwordController.text)
-                                        //         .isEmpty &&
-                                        //     _throwMessageFieldsUsers
-                                        //         .throwMessageValidatorFieldsLogin(
-                                        //             _emailController.text,
-                                        //             _passwordController.text)
-                                        //         .isEmpty) {
-                                        //   setState(() {
-                                        //     _isError = false;
-                                        //   });
-                                        //   BlocProvider.of<LoginBloc>(context).add(
-                                        //     LoginButtonPressed(
-                                        //       email: _emailController.text,
-                                        //       password: _passwordController.text,
-                                        //     ),
-                                        //   );
+                                        if (_throwMessageFieldsUsers
+                                                .throwMessageVerifyEmptyFields(
+                                                    _emailController.text,
+                                                    _passwordController.text)
+                                                .isEmpty &&
+                                            _throwMessageFieldsUsers
+                                                .throwMessageValidatorFieldsLogin(
+                                                    _emailController.text,
+                                                    _passwordController.text)
+                                                .isEmpty) {
+                                          setState(() {
+                                            _isError = false;
+                                          });
+                                          BlocProvider.of<LoginBloc>(context)
+                                              .add(
+                                            LoginButtonPressed(
+                                              email: _emailController.text,
+                                              password:
+                                                  _passwordController.text,
+                                            ),
+                                          );
 
-                                        // Navigator.push(
-                                        //   context,
-                                        //   MaterialPageRoute(
-                                        //     builder: (context) =>
-                                        //         const HomeScreen(),
-                                        //   ),
-                                        // );
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const HomeScreen(),
+                                            ),
+                                          );
 
-                                        //   if (state.error.isNotEmpty) {
-                                        //     ScaffoldMessenger.of(context)
-                                        //         .showSnackBar(
-                                        //       SnackBar(
-                                        //         content: Text(state.error),
-                                        //       ),
-                                        //     );
-                                        //   }
+                                          if (state.error.isNotEmpty) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(state.error),
+                                              ),
+                                            );
+                                          }
 
-                                        //   return;
-                                        // }
-                                        // setState(() {
-                                        //   _isError = true;
-                                        // });
-                                        BlocProvider.of<LoginBloc>(context).add(
-                                          LoginButtonPressed(
-                                            email: _emailController.text,
-                                            password: _passwordController.text,
-                                          ),
-                                        );
-                                        print("state.error ${state.error}");
+                                          return;
+                                        }
+                                        setState(() {
+                                          _isError = true;
+                                        });
                                       },
                                     ),
                                     const SizedBox(

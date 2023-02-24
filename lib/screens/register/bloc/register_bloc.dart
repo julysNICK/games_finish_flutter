@@ -13,32 +13,38 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   final RegisterServices _registerServices = RegisterServices();
   ThrowMessageFieldsUsers? throwMessageFieldsUsers;
   RegisterBloc()
-      : super(RegisterInitialState(user: UserApp(email: "", password: ""))) {
+      : super(RegisterInitialState(
+            user: UserApp(
+          email: "",
+          name: "",
+        ))) {
     on<RegisterButtonPressed>((event, emit) async {
       emit(RegisterLoadingState(
         user: UserApp(
-            email: event.user.userEmail, password: event.user.userPassword),
+          email: event.user.userEmail,
+          name: "",
+        ),
       ));
       try {
         throwMessageFieldsUsers = ThrowMessageFieldsUsers(user: event.user);
 
         await _registerServices.register(event.user);
         emit(RegisterSuccessState(
-          user: UserApp(
-              email: event.user.userEmail, password: event.user.userPassword),
+          user: UserApp(email: event.user.userEmail, name: ""),
         ));
       } catch (e) {
         emit(RegisterFailureState(
             message: e.toString(),
             user: UserApp(
-                email: event.user.userEmail,
-                password: event.user.userPassword)));
+              email: event.user.userEmail,
+              name: "",
+            )));
       }
     });
     on<RegisterClearEvent>((event, emit) async {
       emit(
         RegisterInitialState(
-          user: UserApp(email: "", password: ""),
+          user: UserApp(email: "", name: ""),
         ),
       );
     });

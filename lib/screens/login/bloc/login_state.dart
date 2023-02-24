@@ -1,7 +1,10 @@
 part of 'login_bloc.dart';
 
 abstract class LoginState extends Equatable {
-  final UserApp user = UserApp(email: "", password: "");
+  final UserApp user = UserApp(
+    email: "",
+    name: "",
+  );
   final UserToken token = UserToken(token: "", refreshToken: "");
   final String error = "";
 
@@ -51,4 +54,17 @@ class LoginSuccess extends LoginState {
 
 class SignOutSuccess extends LoginState {
   SignOutSuccess();
+}
+
+class InitScreenHomeLoadingSuccess extends LoginState {
+  @override
+  final UserApp user;
+
+  InitScreenHomeLoadingSuccess({required this.user});
+
+  @override
+  List<Object> get props => [token, user];
+
+  @override
+  String toString() => 'LoginSuccess { token: $token }';
 }

@@ -1,6 +1,5 @@
 class UserApp {
   String email;
-  String password;
-
-  UserApp({required this.email, required this.password});
+  String name;
+  UserApp({required this.email, required this.name});
 }

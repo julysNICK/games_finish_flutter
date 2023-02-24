@@ -20,6 +20,13 @@ class _HomeScreenState extends State<HomeScreen> {
   final ProductBloc _productBloc = ProductBloc();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    BlocProvider.of<LoginBloc>(context).add(const InitScreenHomeLoading());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<ProductBloc, ProductState>(
@@ -43,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         return Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 0.00),
                           child: Text(
-                            "Hello ${state.user.email.split('@')[0].toString()}, welcome to the FinishLine",
+                            "Hello ${state.user.name.split('@')[0].toString()}, welcome to the FinishLine",
                             style: const TextStyle(
                                 color: AppTheme.textDark,
                                 fontSize: 32,

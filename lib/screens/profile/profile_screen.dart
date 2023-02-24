@@ -20,92 +20,96 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: SafeArea(
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                'Profile',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: Container(
-                  height: 150,
-                  width: 150,
-                  decoration: BoxDecoration(
-                    image: const DecorationImage(
-                      image: AssetImage('assets/ProfilVector.png'),
-                      fit: BoxFit.cover,
-                    ),
-                    borderRadius: BorderRadius.circular(100),
-                    border: Border.all(
-                      color: Colors.black,
-                      width: 1,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 5,
-                        blurRadius: 7,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
+          child: BlocBuilder<LoginBloc, LoginState>(
+            builder: (context, state) {
+              return Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              CardInformation(
-                titleCardProfile: 'First Name',
-                contentCardProfile: 'John',
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              CardInformation(
-                titleCardProfile: 'Last Name',
-                contentCardProfile: 'Doe',
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              CardInformation(
-                  titleCardProfile: 'Email',
-                  contentCardProfile: 'jonhDOe@test.com'),
-              const SizedBox(
-                height: 10,
-              ),
-              CardInformation(
-                  titleCardProfile: 'Phone Number',
-                  contentCardProfile: '123456789'),
-              const SizedBox(
-                height: 10,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  BlocProvider.of<LoginBloc>(context)
-                      .add(const SignOutButtonPressed());
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const LoginScreen()));
-                },
-                child: const Text('Sign Out'),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-            ],
+                  const Text(
+                    'Profile',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: Container(
+                      height: 150,
+                      width: 150,
+                      decoration: BoxDecoration(
+                        image: const DecorationImage(
+                          image: AssetImage('assets/ProfilVector.png'),
+                          fit: BoxFit.cover,
+                        ),
+                        borderRadius: BorderRadius.circular(100),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 1,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 5,
+                            blurRadius: 7,
+                            offset: const Offset(
+                                0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  CardInformation(
+                    titleCardProfile: 'First Name',
+                    contentCardProfile: state.user.name,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  CardInformation(
+                    titleCardProfile: 'Email',
+                    contentCardProfile: state.user.email,
+                  ),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
+                  // CardInformation(
+                  //     titleCardProfile: 'Email',
+                  //     contentCardProfile: 'jonhDOe@test.com'),
+                  // const SizedBox(
+                  //   height: 10,
+                  // ),
+                  // CardInformation(
+                  //     titleCardProfile: 'Phone Number',
+                  //     contentCardProfile: '123456789'),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      BlocProvider.of<LoginBloc>(context)
+                          .add(const SignOutButtonPressed());
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginScreen()));
+                    },
+                    child: const Text('Sign Out'),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),

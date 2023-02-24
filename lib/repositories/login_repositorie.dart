@@ -49,6 +49,19 @@ class LoginRepo {
     }
   }
 
+  static getToken() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+
+      if (user != null) {
+        await user.getIdToken();
+        return user;
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   static signOut() async {
     try {
       await FirebaseAuth.instance.signOut();

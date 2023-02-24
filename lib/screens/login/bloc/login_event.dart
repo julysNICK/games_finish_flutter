@@ -27,3 +27,7 @@ class LoginButtonPressed extends LoginEvent {
 class SignOutButtonPressed extends LoginEvent {
   const SignOutButtonPressed();
 }
+
+class InitScreenHomeLoading extends LoginEvent {
+  const InitScreenHomeLoading();
+}
