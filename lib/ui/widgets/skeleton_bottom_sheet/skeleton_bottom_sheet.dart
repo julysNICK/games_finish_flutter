@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:games_finish/models/game_model.dart';
+import 'package:games_finish/screens/login/bloc/login_bloc.dart';
 import 'package:games_finish/ui/widgets/field/field_custom.dart';
 
 import '../../../screens/home/bloc/product_bloc.dart';
@@ -39,6 +40,7 @@ class _SkeletonBottomSheetState extends State<SkeletonBottomSheet> {
         image: "",
         title: _titleController.text,
         status: defaultChoice,
+        userUid: BlocProvider.of<LoginBloc>(context).state.user.uid,
       )));
     }
 

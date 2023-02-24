@@ -43,4 +43,8 @@ class ListProductByStatus extends ProductEvent {
   List<Object> get props => [status];
 }
 
-class GetAllProducts extends ProductEvent {}
+class GetAllProducts extends ProductEvent {
+  String uid;
+
+  GetAllProducts({required this.uid});
+}

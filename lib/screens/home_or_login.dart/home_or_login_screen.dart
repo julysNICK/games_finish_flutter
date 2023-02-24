@@ -26,7 +26,8 @@ class _HomeOrLoginScreenState extends State<HomeOrLoginScreen> {
             ),
           );
         } else if (snapshot.hasData) {
-          BlocProvider.of<ProductBloc>(context).add(GetAllProducts());
+          BlocProvider.of<ProductBloc>(context)
+              .add(GetAllProducts(uid: FirebaseAuth.instance.currentUser!.uid));
           return const HomeScreen();
         } else if (snapshot.hasError) {
           return const Scaffold(

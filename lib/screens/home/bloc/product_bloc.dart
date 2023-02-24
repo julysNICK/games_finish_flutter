@@ -13,7 +13,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       emit(ProductLoading());
 
       try {
-        await GameService().createGame(event.games.title, event.games.status);
+        await GameService().createGame(
+            event.games.title, event.games.status, event.games.userUid);
         gamesList.add(event.games);
 
         emit(
@@ -32,7 +33,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         isLoading: true,
       ));
       try {
-        final gamesAll = await GameService().getAllGames();
+        final gamesAll = await GameService().getAllGames(event.uid);
 
         for (var element in gamesAll) {
           gamesList.add(GameModel(

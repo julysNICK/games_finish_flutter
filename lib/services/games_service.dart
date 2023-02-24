@@ -9,17 +9,17 @@ class GameService {
 
   GameService._internal();
 
-  Future<void> createGame(String? name, String? status) async {
+  Future<void> createGame(String? name, String? status, String? userId) async {
     try {
-      await GamesRepo().createGame(name, status);
+      await GamesRepo().createGame(name, status, userId);
     } catch (e) {
       throw Exception('Failed to create game');
     }
   }
 
-  Future<List<Map<String, dynamic>>> getAllGames() async {
+  Future<List<Map<String, dynamic>>> getAllGames(String uid) async {
     try {
-      final gamesAll = await GamesRepo().getAllGames();
+      final gamesAll = await GamesRepo().getAllGames(uid);
       return gamesAll;
     } catch (e) {
       throw Exception('Failed to get all games');
