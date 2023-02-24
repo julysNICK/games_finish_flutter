@@ -52,7 +52,6 @@ class LoginRepo {
   static getToken() async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
-
       if (user != null) {
         await user.getIdToken();
         return user;

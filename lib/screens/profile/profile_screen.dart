@@ -22,6 +22,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: SafeArea(
           child: BlocBuilder<LoginBloc, LoginState>(
             builder: (context, state) {
+              print(state.user.uid);
               return Column(
                 children: [
                   const SizedBox(
@@ -78,6 +79,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     titleCardProfile: 'Email',
                     contentCardProfile: state.user.email,
                   ),
+
+                  if (state.user.numberPhoneUser.isNotEmpty)
+                    CardInformation(
+                      titleCardProfile: 'Phone Number',
+                      contentCardProfile: '123456789',
+                    ),
+                  if (state.user.numberPhoneUser.isNotEmpty)
+                    CardInformation(
+                        titleCardProfile: 'Phone Number',
+                        contentCardProfile: state.user.numberPhoneUser),
+                  if (state.user.uid!.isNotEmpty)
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  if (state.user.uid!.isNotEmpty)
+                    CardInformation(
+                        titleCardProfile: "User ID",
+                        contentCardProfile: state.user.uid!),
                   // const SizedBox(
                   //   height: 10,
                   // ),

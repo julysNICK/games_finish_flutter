@@ -1,10 +1,8 @@
 part of 'login_bloc.dart';
 
 abstract class LoginState extends Equatable {
-  final UserApp user = UserApp(
-    email: "",
-    name: "",
-  );
+  final UserApp user =
+      UserApp(email: "", name: "", numberPhoneUser: "", uid: "");
   final UserToken token = UserToken(token: "", refreshToken: "");
   final String error = "";
 

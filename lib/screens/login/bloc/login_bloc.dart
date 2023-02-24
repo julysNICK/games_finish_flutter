@@ -9,7 +9,9 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(LoginInitial(user: UserApp(email: "", name: ""))) {
+  LoginBloc()
+      : super(LoginInitial(
+            user: UserApp(email: "", name: "", numberPhoneUser: "", uid: ""))) {
     on<LoginEvent>((event, emit) {
       // TODO: implement event handler
     });
@@ -22,10 +24,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
         emit(
           LoginSuccess(
-            user: UserApp(
-              email: event.email,
-              name: "",
-            ),
+            user: UserApp(email: event.email, name: "", numberPhoneUser: ""),
           ),
         );
       } catch (error) {
@@ -57,10 +56,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             user: UserApp(
               email: token.email ?? token.email.toString(),
               name: token.displayName ?? token.displayName.toString(),
+              numberPhoneUser:
+                  token.phoneNumber ?? token.phoneNumber.toString(),
+              uid: token.uid ?? token.uid.toString(),
             ),
           ));
         } else {
-          emit(LoginInitial(user: UserApp(email: "", name: "")));
+          emit(LoginInitial(
+              user:
+                  UserApp(email: "", name: "", numberPhoneUser: "", uid: "")));
         }
       } catch (error) {
         emit(LoginFailure(
