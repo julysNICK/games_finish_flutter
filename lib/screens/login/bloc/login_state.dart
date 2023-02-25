@@ -50,6 +50,19 @@ class LoginSuccess extends LoginState {
   String toString() => 'LoginSuccess { token: $token }';
 }
 
+class LoginSuccessGetUser extends LoginState {
+  @override
+  final UserApp user;
+
+  LoginSuccessGetUser({required this.user});
+
+  @override
+  List<Object> get props => [token, user];
+
+  @override
+  String toString() => 'LoginSuccess { token: $token }';
+}
+
 class SignOutSuccess extends LoginState {
   SignOutSuccess();
 }

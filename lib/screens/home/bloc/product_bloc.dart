@@ -10,6 +10,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final List<GameModel> gamesList = [];
   ProductBloc() : super(const ProductInitial()) {
     on<ProductAdd>((event, emit) async {
+      print('ProductAdd');
       emit(ProductLoading());
 
       try {
@@ -28,6 +29,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     });
 
     on<GetAllProducts>((event, emit) async {
+      print('GetAllProducts');
       emit(ProductLoading(
         isLoading: true,
       ));
@@ -50,6 +52,16 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       } catch (e) {
         emit(ProductError(message: e.toString()));
       }
+    });
+
+    on<ProductClearWhenLogout>((event, emit) async {
+      print('ProductClearWhenLogout');
+      gamesList.clear();
+      emit(
+        ProductAddState(
+          games: gamesList,
+        ),
+      );
     });
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:games_finish/screens/home/bloc/product_bloc.dart';
 import 'package:games_finish/screens/login/login_screen.dart';
 import 'package:games_finish/screens/profile/widgets/card_information_profile.dart';
 
@@ -115,10 +116,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onPressed: () {
                       BlocProvider.of<LoginBloc>(context)
                           .add(const SignOutButtonPressed());
-                      Navigator.push(
-                          context,
+                      BlocProvider.of<ProductBloc>(context)
+                          .add(ProductClearWhenLogout());
+
+                      Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
-                              builder: (context) => const LoginScreen()));
+                              builder: (context) => const LoginScreen()),
+                          (Route<dynamic> route) => false);
                     },
                     child: const Text('Sign Out'),
                   ),

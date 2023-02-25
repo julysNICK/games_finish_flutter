@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:games_finish/screens/home/bloc/product_bloc.dart';
 
 import '../home/home_screen.dart';
+import '../login/bloc/login_bloc.dart';
 import '../login/login_screen.dart';
 
 class HomeOrLoginScreen extends StatefulWidget {
@@ -26,6 +27,9 @@ class _HomeOrLoginScreenState extends State<HomeOrLoginScreen> {
             ),
           );
         } else if (snapshot.hasData) {
+          print("chamei iniciando o app");
+          BlocProvider.of<LoginBloc>(context)
+              .add(const InitScreenHomeLoading());
           BlocProvider.of<ProductBloc>(context)
               .add(GetAllProducts(uid: FirebaseAuth.instance.currentUser!.uid));
           return const HomeScreen();

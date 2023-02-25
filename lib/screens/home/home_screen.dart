@@ -17,12 +17,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final ProductBloc _productBloc = ProductBloc();
-
   @override
   void initState() {
+    if (BlocProvider.of<LoginBloc>(context).state is LoginSuccessGetUser &&
+        BlocProvider.of<ProductBloc>(context).state.games.isEmpty) {
+      BlocProvider.of<ProductBloc>(context).add(GetAllProducts(
+        uid: BlocProvider.of<LoginBloc>(context).state.user.uid.toString(),
+      ));
+    }
     super.initState();
-    BlocProvider.of<LoginBloc>(context).add(const InitScreenHomeLoading());
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    BlocProvider.of<ProductBloc>(context).close();
   }
 
   @override

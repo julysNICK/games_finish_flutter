@@ -30,6 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void dispose() {
     _emailController.dispose();
     _passwordController.dispose();
+
     super.dispose();
   }
 
@@ -40,6 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {
+            BlocProvider.of<LoginBloc>(context)
+                .add(const InitScreenHomeLoading());
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -174,6 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           setState(() {
                                             _isError = false;
                                           });
+
                                           BlocProvider.of<LoginBloc>(context)
                                               .add(
                                             LoginButtonPressed(

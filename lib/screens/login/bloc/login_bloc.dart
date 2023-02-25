@@ -9,6 +9,7 @@ part 'login_event.dart';
 part 'login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  bool isFinish = false;
   LoginBloc()
       : super(LoginInitial(
             user: UserApp(email: "", name: "", numberPhoneUser: "", uid: ""))) {
@@ -17,8 +18,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
 
     on<LoginButtonPressed>((event, emit) async {
+      print("LoginButtonPressed");
       emit(LoginLoading());
-
       try {
         await LoginServices().register(event.email, event.password);
 
@@ -35,14 +36,17 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
 
     on<SignOutButtonPressed>((event, emit) async {
+      print("SignOutButtonPressed");
       emit(LoginLoading());
       try {
         await LoginServices().signOut();
         emit(SignOutSuccess());
+        isFinish = false;
       } catch (error) {
         emit(LoginFailure(
           error: error.toString(),
         ));
+        isFinish = false;
       }
     });
 
@@ -51,7 +55,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try {
         final User? token = await LoginServices().getToken();
         if (token != null) {
-          emit(LoginSuccess(
+          print("peguei a info");
+          emit(LoginSuccessGetUser(
             user: UserApp(
               email: token.email ?? token.email.toString(),
               name: token.displayName ?? token.displayName.toString(),

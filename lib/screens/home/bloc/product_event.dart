@@ -48,3 +48,5 @@ class GetAllProducts extends ProductEvent {
 
   GetAllProducts({required this.uid});
 }
+
+class ProductClearWhenLogout extends ProductEvent {}
