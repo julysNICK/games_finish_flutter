@@ -79,13 +79,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     titleCardProfile: 'Email',
                     contentCardProfile: state.user.email,
                   ),
-
-                  if (state.user.numberPhoneUser.isNotEmpty)
-                    CardInformation(
-                      titleCardProfile: 'Phone Number',
-                      contentCardProfile: '123456789',
-                    ),
-                  if (state.user.numberPhoneUser.isNotEmpty)
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  if (state.user.numberPhoneUser.isNotEmpty &&
+                      state.user.numberPhoneUser != 'null')
                     CardInformation(
                         titleCardProfile: 'Phone Number',
                         contentCardProfile: state.user.numberPhoneUser),

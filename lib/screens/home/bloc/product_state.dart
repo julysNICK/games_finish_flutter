@@ -50,6 +50,8 @@ class ProductListByStatusState extends ProductState {
   List<Object> get props => [games];
 }
 
+class ProductGetSuccess extends ProductState {}
+
 class ProductsUpdate extends ProductState {
   @override
   final List<GameModel> games;

@@ -23,6 +23,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
             games: gamesList,
           ),
         );
+        emit(ProductGetSuccess());
       } catch (e) {
         emit(ProductError(message: e.toString()));
       }
@@ -31,31 +32,35 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<PressButtonStatusSwitch>((event, emit) async {
       print('PressButtonStatusSwitch');
       emit(ProductLoading());
-      if (event.status == 'all') {
-        emit(
-          ProductAddState(
-            games: gamesList,
-          ),
-        );
-      } else {
-        emit(
-          ProductAddState(
-              games: gamesList
-                  .where((element) =>
-                      element.status
-                          .replaceAll(
-                            RegExp(r'\s+'),
-                            '',
-                          )
-                          .toLowerCase() ==
-                      event.status
-                          .replaceAll(
-                            RegExp(r'\s+'),
-                            '',
-                          )
-                          .toLowerCase())
-                  .toList()),
-        );
+      print(event.status);
+      if (gamesList.isNotEmpty) {
+        if (event.status == 'all') {
+          print(gamesList);
+          emit(
+            ProductAddState(
+              games: gamesList,
+            ),
+          );
+        } else {
+          emit(
+            ProductAddState(
+                games: gamesList
+                    .where((element) =>
+                        element.status
+                            .replaceAll(
+                              RegExp(r'\s+'),
+                              '',
+                            )
+                            .toLowerCase() ==
+                        event.status
+                            .replaceAll(
+                              RegExp(r'\s+'),
+                              '',
+                            )
+                            .toLowerCase())
+                    .toList()),
+          );
+        }
       }
     });
 

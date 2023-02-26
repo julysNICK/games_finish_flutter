@@ -13,7 +13,7 @@ class TabBarViewHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<ProductBloc>(context)
-        .add(const PressButtonStatusSwitch(status: 'inProgress'));
+        .add(const PressButtonStatusSwitch(status: 'all'));
     return TabBar(
       onTap: (index) {
         switch (index) {
