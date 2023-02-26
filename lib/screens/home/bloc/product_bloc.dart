@@ -10,7 +10,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final List<GameModel> gamesList = [];
   ProductBloc() : super(const ProductInitial()) {
     on<ProductAdd>((event, emit) async {
-      print('ProductAdd');
       emit(ProductLoading());
 
       try {
@@ -30,42 +29,68 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     });
 
     on<PressButtonStatusSwitch>((event, emit) async {
-      print('PressButtonStatusSwitch');
       emit(ProductLoading());
-      print(event.status);
-      if (gamesList.isNotEmpty) {
-        if (event.status == 'all') {
-          print(gamesList);
+
+      switch (event.index) {
+        case 0:
           emit(
             ProductAddState(
               games: gamesList,
             ),
           );
-        } else {
+          break;
+        case 1:
           emit(
             ProductAddState(
-                games: gamesList
-                    .where((element) =>
-                        element.status
-                            .replaceAll(
-                              RegExp(r'\s+'),
-                              '',
-                            )
-                            .toLowerCase() ==
-                        event.status
-                            .replaceAll(
-                              RegExp(r'\s+'),
-                              '',
-                            )
-                            .toLowerCase())
-                    .toList()),
+              games: gamesList
+                  .where((element) =>
+                      element.status
+                          .replaceAll(
+                            RegExp(r'\s+'),
+                            '',
+                          )
+                          .toLowerCase() ==
+                      'inprogress')
+                  .toList(),
+            ),
           );
-        }
+          break;
+        case 2:
+          emit(
+            ProductAddState(
+              games: gamesList
+                  .where((element) =>
+                      element.status
+                          .replaceAll(
+                            RegExp(r'\s+'),
+                            '',
+                          )
+                          .toLowerCase() ==
+                      'completed')
+                  .toList(),
+            ),
+          );
+          break;
+        case 3:
+          emit(
+            ProductAddState(
+              games: gamesList
+                  .where((element) =>
+                      element.status
+                          .replaceAll(
+                            RegExp(r'\s+'),
+                            '',
+                          )
+                          .toLowerCase() ==
+                      'platinum')
+                  .toList(),
+            ),
+          );
+          break;
       }
     });
 
     on<GetAllProducts>((event, emit) async {
-      print('GetAllProducts');
       emit(ProductLoading(
         isLoading: true,
       ));
@@ -91,13 +116,18 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     });
 
     on<ProductClearWhenLogout>((event, emit) async {
-      print('ProductClearWhenLogout');
       gamesList.clear();
       emit(
         ProductAddState(
           games: gamesList,
         ),
       );
+    });
+
+    on<CallLoading>((event, emit) async {
+      emit(ProductLoading(
+        isLoading: true,
+      ));
     });
   }
 

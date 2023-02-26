@@ -16,7 +16,11 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
+  TabController? controllerSwipper;
+  int selectedIndex = 0;
+  bool isLoading = false;
   @override
   void initState() {
     if (BlocProvider.of<LoginBloc>(context).state is LoginSuccessGetUser &&
@@ -26,12 +30,27 @@ class _HomeScreenState extends State<HomeScreen> {
       ));
     }
     super.initState();
+
+    controllerSwipper = TabController(length: 4, vsync: this);
+
+    controllerSwipper!.addListener(() {
+      BlocProvider.of<ProductBloc>(context).add(CallLoading());
+      setState(() {
+        selectedIndex = controllerSwipper!.index;
+      });
+      BlocProvider.of<ProductBloc>(context).add(
+        PressButtonStatusSwitch(
+          index: controllerSwipper!.index,
+        ),
+      );
+    });
   }
 
   @override
   void dispose() {
     super.dispose();
     BlocProvider.of<ProductBloc>(context).close();
+    controllerSwipper!.dispose();
   }
 
   @override
@@ -80,13 +99,17 @@ class _HomeScreenState extends State<HomeScreen> {
                     const SizedBox(
                       height: 20,
                     ),
-                    const TabBarViewHome(),
+                    TabBarViewHome(
+                      controllerSwipper: controllerSwipper,
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
-                    const Flexible(
+                    Flexible(
                       flex: 1,
-                      child: ListGridItems(),
+                      child: ListGridItems(
+                        controllerSwipper: controllerSwipper,
+                      ),
                     ),
                   ],
                 ),

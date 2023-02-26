@@ -52,10 +52,12 @@ class GetAllProducts extends ProductEvent {
 class ProductClearWhenLogout extends ProductEvent {}
 
 class PressButtonStatusSwitch extends ProductEvent {
-  final String status;
+  final int index;
 
-  const PressButtonStatusSwitch({required this.status});
+  const PressButtonStatusSwitch({required this.index});
 
   @override
-  List<Object> get props => [status];
+  List<Object> get props => [index];
 }
+
+class CallLoading extends ProductEvent {}
