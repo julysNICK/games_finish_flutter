@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:games_finish/screens/home/bloc/product_bloc.dart';
 
 import '../home/home_screen.dart';
+import '../leading/leading_screen.dart';
 import '../login/bloc/login_bloc.dart';
-import '../login/login_screen.dart';
 
 class HomeOrLoginScreen extends StatefulWidget {
   const HomeOrLoginScreen({super.key});
@@ -40,7 +40,7 @@ class _HomeOrLoginScreenState extends State<HomeOrLoginScreen> {
             ),
           );
         } else {
-          return const LoginScreen();
+          return const LeadingGameScreen();
         }
       },
     );
