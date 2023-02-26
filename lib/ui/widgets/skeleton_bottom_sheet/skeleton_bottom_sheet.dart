@@ -30,7 +30,7 @@ class _SkeletonBottomSheetState extends State<SkeletonBottomSheet> {
   Widget build(BuildContext context) {
     List<MyChoices> choices = <MyChoices>[
       MyChoices(choice: 'In progress', index: 0),
-      MyChoices(choice: 'Finished', index: 1),
+      MyChoices(choice: 'Completed', index: 1),
       MyChoices(choice: 'Platinum', index: 2),
     ];
 

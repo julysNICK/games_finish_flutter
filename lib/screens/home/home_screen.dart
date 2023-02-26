@@ -46,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
           }
 
           return DefaultTabController(
-            length: 3,
+            length: 4,
             child: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),

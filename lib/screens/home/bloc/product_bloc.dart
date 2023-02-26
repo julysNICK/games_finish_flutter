@@ -28,6 +28,37 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       }
     });
 
+    on<PressButtonStatusSwitch>((event, emit) async {
+      print('PressButtonStatusSwitch');
+      emit(ProductLoading());
+      if (event.status == 'all') {
+        emit(
+          ProductAddState(
+            games: gamesList,
+          ),
+        );
+      } else {
+        emit(
+          ProductAddState(
+              games: gamesList
+                  .where((element) =>
+                      element.status
+                          .replaceAll(
+                            RegExp(r'\s+'),
+                            '',
+                          )
+                          .toLowerCase() ==
+                      event.status
+                          .replaceAll(
+                            RegExp(r'\s+'),
+                            '',
+                          )
+                          .toLowerCase())
+                  .toList()),
+        );
+      }
+    });
+
     on<GetAllProducts>((event, emit) async {
       print('GetAllProducts');
       emit(ProductLoading(

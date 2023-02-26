@@ -59,3 +59,13 @@ class ProductsUpdate extends ProductState {
   @override
   List<Object> get props => [games];
 }
+
+class ProductbyStatus extends ProductState {
+  @override
+  final List<GameModel> games;
+
+  const ProductbyStatus({required this.games});
+
+  @override
+  List<Object> get props => [games];
+}
