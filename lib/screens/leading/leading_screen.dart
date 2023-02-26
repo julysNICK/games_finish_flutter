@@ -87,20 +87,17 @@ class _LeadingGameScreenState extends State<LeadingGameScreen> {
                       },
                       children: [
                         PageOnBoarding(
-                          imagePath: "assets/leadingimage2.jpg",
                           title:
                               "A new way to save your progress in game worlds",
                           description:
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                         ),
                         PageOnBoarding(
-                          imagePath: "assets/leadingimage1.jpg",
                           title: "Save your progress",
                           description:
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
                         ),
                         PageOnBoarding(
-                          imagePath: "assets/leadingimage3.jpg",
                           title: "Come and join us",
                           description:
                               "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",

@@ -30,8 +30,11 @@ class _HomeOrLoginScreenState extends State<HomeOrLoginScreen> {
           print("chamei iniciando o app");
           BlocProvider.of<LoginBloc>(context)
               .add(const InitScreenHomeLoading());
-          BlocProvider.of<ProductBloc>(context)
-              .add(GetAllProducts(uid: FirebaseAuth.instance.currentUser!.uid));
+
+          if (BlocProvider.of<ProductBloc>(context).state.games.isEmpty) {
+            BlocProvider.of<ProductBloc>(context).add(
+                GetAllProducts(uid: FirebaseAuth.instance.currentUser!.uid));
+          }
           return const HomeScreen();
         } else if (snapshot.hasError) {
           return const Scaffold(

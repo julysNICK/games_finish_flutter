@@ -41,6 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {
+            print("LoginSuccess");
             BlocProvider.of<LoginBloc>(context)
                 .add(const InitScreenHomeLoading());
             Navigator.push(
@@ -186,15 +187,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   _passwordController.text,
                                             ),
                                           );
-
-                                          if (state.error.isNotEmpty) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(state.error),
-                                              ),
-                                            );
-                                          }
 
                                           return;
                                         }

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-class PageOnBoarding extends StatefulWidget {
+class PageOnBoardingTwo extends StatefulWidget {
   String title;
   String description;
-  PageOnBoarding({super.key, required this.title, required this.description});
+  PageOnBoardingTwo(
+      {super.key, required this.title, required this.description});
 
   @override
-  State<PageOnBoarding> createState() => _PageOnBoardingState();
+  State<PageOnBoardingTwo> createState() => _PageOnBoardingTwoState();
 }
 
-class _PageOnBoardingState extends State<PageOnBoarding> {
+class _PageOnBoardingTwoState extends State<PageOnBoardingTwo> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,15 +20,15 @@ class _PageOnBoardingState extends State<PageOnBoarding> {
         children: [
           Center(
             child: Image.asset(
-              'assets/leadingimage1.jpg',
+              'assets/leadingimage3.jpg',
               height: 300.0,
               width: 300.0,
               filterQuality: FilterQuality.low,
             ),
           ),
           const SizedBox(height: 10.0),
-          Text(widget.title,
-              style: const TextStyle(
+          const Text("Come and join us",
+              style: TextStyle(
                   color: Colors.white,
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold)),

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class PageOnBoarding extends StatefulWidget {
-  String title;
-  String description;
-  PageOnBoarding({super.key, required this.title, required this.description});
+class PageOnBoardingOne extends StatefulWidget {
+  const PageOnBoardingOne({
+    super.key,
+  });
 
   @override
-  State<PageOnBoarding> createState() => _PageOnBoardingState();
+  State<PageOnBoardingOne> createState() => _PageOnBoardingOneState();
 }
 
-class _PageOnBoardingState extends State<PageOnBoarding> {
+class _PageOnBoardingOneState extends State<PageOnBoardingOne> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,22 +19,22 @@ class _PageOnBoardingState extends State<PageOnBoarding> {
         children: [
           Center(
             child: Image.asset(
-              'assets/leadingimage1.jpg',
+              'assets/leadingimage2.jpg',
               height: 300.0,
               width: 300.0,
               filterQuality: FilterQuality.low,
             ),
           ),
           const SizedBox(height: 10.0),
-          Text(widget.title,
-              style: const TextStyle(
+          const Text("Save your progress",
+              style: TextStyle(
                   color: Colors.white,
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold)),
           const SizedBox(height: 15.0),
-          Text(
-            widget.description,
-            style: const TextStyle(
+          const Text(
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            style: TextStyle(
               color: Colors.white,
               fontSize: 18.0,
             ),

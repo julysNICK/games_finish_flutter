@@ -25,9 +25,13 @@ class _HomeScreenState extends State<HomeScreen>
   void initState() {
     if (BlocProvider.of<LoginBloc>(context).state is LoginSuccessGetUser &&
         BlocProvider.of<ProductBloc>(context).state.games.isEmpty) {
-      BlocProvider.of<ProductBloc>(context).add(GetAllProducts(
-        uid: BlocProvider.of<LoginBloc>(context).state.user.uid.toString(),
-      ));
+      if (BlocProvider.of<ProductBloc>(context).state.games.isEmpty) {
+        BlocProvider.of<ProductBloc>(context).add(
+          GetAllProducts(
+            uid: BlocProvider.of<LoginBloc>(context).state.user.uid.toString(),
+          ),
+        );
+      }
     }
     super.initState();
 
