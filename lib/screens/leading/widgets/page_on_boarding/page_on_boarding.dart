@@ -25,8 +25,9 @@ class _PageOnBoardingState extends State<PageOnBoarding> {
           Center(
             child: Image.asset(
               widget.imagePath,
-              height: 300,
-              width: 300,
+              height: 300.0,
+              width: 300.0,
+              filterQuality: FilterQuality.low,
             ),
           ),
           const SizedBox(height: 10.0),
