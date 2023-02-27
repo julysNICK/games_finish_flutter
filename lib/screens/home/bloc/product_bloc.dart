@@ -91,7 +91,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     });
 
     on<GetAllProducts>((event, emit) async {
-      print('GetAllProducts');
       emit(ProductLoading(
         isLoading: true,
       ));

@@ -27,7 +27,6 @@ class _HomeOrLoginScreenState extends State<HomeOrLoginScreen> {
             ),
           );
         } else if (snapshot.hasData) {
-          print("chamei iniciando o app");
           BlocProvider.of<LoginBloc>(context)
               .add(const InitScreenHomeLoading());
 

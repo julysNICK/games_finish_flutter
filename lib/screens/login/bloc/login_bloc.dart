@@ -18,7 +18,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
 
     on<LoginButtonPressed>((event, emit) async {
-      print("LoginButtonPressed");
       emit(LoginLoading());
       try {
         await LoginServices().register(event.email, event.password);
@@ -36,7 +35,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
 
     on<SignOutButtonPressed>((event, emit) async {
-      print("SignOutButtonPressed");
       emit(LoginLoading());
       try {
         await LoginServices().signOut();
@@ -55,7 +53,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try {
         final User? token = await LoginServices().getToken();
         if (token != null) {
-          print("peguei a info");
           emit(LoginSuccessGetUser(
             user: UserApp(
               email: token.email ?? token.email.toString(),

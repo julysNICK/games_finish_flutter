@@ -41,7 +41,6 @@ class _LoginScreenState extends State<LoginScreen> {
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccess) {
-            print("LoginSuccess");
             BlocProvider.of<LoginBloc>(context)
                 .add(const InitScreenHomeLoading());
             Navigator.push(
