@@ -43,7 +43,7 @@ class RegisterUser {
         await userCredential.user!.reload();
         await userCredential.user
             ?.sendEmailVerification()
-            .then((value) => print('Email sent'));
+            .then((value) => print('Email sednt'));
         await userCredential.user!.sendEmailVerification();
       }
     } catch (e) {
