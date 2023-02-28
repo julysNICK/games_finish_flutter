@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../../../details_game/game_details_screen.dart';
 
 class CardGame extends StatelessWidget {
-  String imagePath = 'assets/download.jpeg';
+  String imagePath = 'assets/backgroundImage.jpg';
   String title = 'The witcher 3';
   String status = 'Completed';
 
   CardGame({
     super.key,
-    this.imagePath = 'assets/download.jpeg',
+    this.imagePath = 'assets/backgroundImage.jpg',
     this.title = 'The witcher 3',
     this.status = 'Completed',
   });

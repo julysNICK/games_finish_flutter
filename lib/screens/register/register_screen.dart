@@ -10,7 +10,6 @@ import '../../ui/widgets/field/field_custom.dart';
 import '../../ui/widgets/pain_custom_top/paint_custom_top.dart';
 
 import '../../utils/throw_messa_error.dart';
-import '../login/login_screen.dart';
 import '../login/widgets/paint_custom_right/paint_custom_right.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -43,8 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: BlocListener<RegisterBloc, RegisterState>(
         listener: (context, state) {
           if (state is RegisterSuccessState) {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const LoginScreen()));
+            Navigator.pushNamed(context, '/login');
           }
         },
         child: SingleChildScrollView(

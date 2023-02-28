@@ -9,7 +9,6 @@ import 'package:games_finish/ui/theme.dart';
 import '../../ui/widgets/button_custom_signin_signup/button_custom_signin_signup.dart';
 import '../../ui/widgets/field/field_custom.dart';
 import '../../utils/throw_messa_error.dart';
-import '../home/home_screen.dart';
 import 'bloc/login_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -43,12 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is LoginSuccess) {
             BlocProvider.of<LoginBloc>(context)
                 .add(const InitScreenHomeLoading());
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
-              ),
-            );
+            Navigator.pushNamed(context, '/home');
           }
 
           if (state is LoginFailure) {

@@ -2,10 +2,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:games_finish/screens/home/bloc/product_bloc.dart';
+import 'package:games_finish/screens/home/home_screen.dart';
 import 'package:games_finish/screens/home_or_login.dart/home_or_login_screen.dart';
 import 'package:games_finish/screens/login/bloc/login_bloc.dart';
 import 'package:games_finish/screens/login/login_screen.dart';
+import 'package:games_finish/screens/profile/profile_screen.dart';
 import 'package:games_finish/screens/register/bloc/register_bloc.dart';
+import 'package:games_finish/screens/register/register_screen.dart';
 
 void main() async {
   try {
@@ -54,9 +57,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: HomeOrLoginScreen(),
+      home: const HomeOrLoginScreen(),
+      routes: {
+        '/login': (context) => const LoginScreen(),
+        '/register': (context) => const RegisterScreen(),
+        '/home': (context) => const HomeScreen(),
+        '/profile': (context) => const ProfileScreen(),
+        '/error': (context) => const ErrorScreen(),
+      },
     );
   }
 }

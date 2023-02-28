@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../../../ui/theme.dart';
-import '../../../register/register_screen.dart';
 
 class SignUp extends StatelessWidget {
   const SignUp({super.key});
@@ -23,12 +22,7 @@ class SignUp extends StatelessWidget {
         ),
         GestureDetector(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const RegisterScreen(),
-              ),
-            );
+            Navigator.pushNamed(context, "/register");
           },
           child: const Text(
             "Sign Up",
