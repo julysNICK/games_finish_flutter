@@ -37,7 +37,7 @@ class _SkeletonBottomSheetState extends State<SkeletonBottomSheet> {
     addGame() {
       BlocProvider.of<ProductBloc>(context).add(ProductAdd(
           games: GameModel(
-        image: "",
+        image: "assets/backgroundImage.jpg",
         title: _titleController.text,
         status: defaultChoice,
         userUid: BlocProvider.of<LoginBloc>(context).state.user.uid,

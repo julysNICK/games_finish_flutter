@@ -8,6 +8,7 @@ part 'product_state.dart';
 
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final List<GameModel> gamesList = [];
+  List<GameModel> gameListSearch = [];
   ProductBloc() : super(const ProductInitial()) {
     on<ProductAdd>((event, emit) async {
       emit(ProductLoading());
@@ -19,10 +20,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
         emit(
           ProductAddState(
-            games: gamesList,
-          ),
+              games: gamesList, gamesListSearch: gamesList, status: 'all'),
         );
-        emit(ProductGetSuccess());
       } catch (e) {
         emit(ProductError(message: e.toString()));
       }
@@ -30,19 +29,22 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
 
     on<PressButtonStatusSwitch>((event, emit) async {
       emit(ProductLoading());
-
+      gameListSearch = gamesList;
       switch (event.index) {
         case 0:
           emit(
             ProductAddState(
               games: gamesList,
+              gamesListSearch: gamesList,
+              status: 'all',
             ),
           );
           break;
         case 1:
           emit(
             ProductAddState(
-              games: gamesList
+              games: gamesList,
+              gamesListSearch: gameListSearch
                   .where((element) =>
                       element.status
                           .replaceAll(
@@ -52,13 +54,15 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
                           .toLowerCase() ==
                       'inprogress')
                   .toList(),
+              status: 'inprogress',
             ),
           );
           break;
         case 2:
           emit(
             ProductAddState(
-              games: gamesList
+              games: gamesList,
+              gamesListSearch: gameListSearch
                   .where((element) =>
                       element.status
                           .replaceAll(
@@ -68,13 +72,15 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
                           .toLowerCase() ==
                       'completed')
                   .toList(),
+              status: 'completed',
             ),
           );
           break;
         case 3:
           emit(
             ProductAddState(
-              games: gamesList
+              games: gamesList,
+              gamesListSearch: gameListSearch
                   .where((element) =>
                       element.status
                           .replaceAll(
@@ -84,9 +90,18 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
                           .toLowerCase() ==
                       'platinum')
                   .toList(),
+              status: 'platinum',
             ),
           );
           break;
+        default:
+          emit(
+            ProductAddState(
+              games: gamesList,
+              gamesListSearch: gamesList,
+              status: 'all',
+            ),
+          );
       }
     });
 
@@ -108,6 +123,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
         emit(
           ProductAddState(
             games: gamesList,
+            gamesListSearch: gamesList,
+            status: 'all',
           ),
         );
       } catch (e) {
@@ -115,8 +132,21 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       }
     });
 
+    on<SetDefaultState>((event, emit) async {
+      print("set default state");
+      print("gamesListDefault: $gamesList");
+      emit(
+        ProductAddState(
+          games: gamesList,
+          gamesListSearch: gamesList,
+          status: 'all',
+        ),
+      );
+    });
+
     on<ProductClearWhenLogout>((event, emit) async {
       gamesList.clear();
+      gameListSearch.clear();
       emit(
         ProductAddState(
           games: gamesList,

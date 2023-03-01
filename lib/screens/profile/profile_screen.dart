@@ -17,6 +17,18 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (BlocProvider.of<ProductBloc>(context).state.gamesListSearch.isEmpty &&
+        BlocProvider.of<ProductBloc>(context).state.games.isNotEmpty) {
+      BlocProvider.of<ProductBloc>(context).add(const PressButtonStatusSwitch(
+        index: 0,
+      ));
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(

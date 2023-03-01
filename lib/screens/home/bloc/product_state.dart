@@ -2,7 +2,12 @@ part of 'product_bloc.dart';
 
 abstract class ProductState extends Equatable {
   final List<GameModel> games;
-  const ProductState({this.games = const []});
+  final List<GameModel> gamesListSearch;
+  final String status;
+  const ProductState(
+      {this.games = const [],
+      this.gamesListSearch = const [],
+      this.status = 'all'});
 
   @override
   List<Object> get props => [];
@@ -24,8 +29,15 @@ class ProductLoading extends ProductState {
 class ProductAddState extends ProductState {
   @override
   final List<GameModel> games;
+  @override
+  final List<GameModel> gamesListSearch;
 
-  const ProductAddState({required this.games});
+  @override
+  final String status;
+  const ProductAddState(
+      {required this.games,
+      this.gamesListSearch = const [],
+      this.status = 'all'});
 
   @override
   List<Object> get props => [games];
@@ -38,16 +50,6 @@ class ProductError extends ProductState {
 
   @override
   List<Object> get props => [message];
-}
-
-class ProductListByStatusState extends ProductState {
-  @override
-  final List<GameModel> games;
-
-  const ProductListByStatusState({required this.games});
-
-  @override
-  List<Object> get props => [games];
 }
 
 class ProductGetSuccess extends ProductState {}

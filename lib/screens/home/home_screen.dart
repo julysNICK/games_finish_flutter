@@ -23,16 +23,6 @@ class _HomeScreenState extends State<HomeScreen>
   bool isLoading = false;
   @override
   void initState() {
-    if (BlocProvider.of<LoginBloc>(context).state is LoginSuccessGetUser &&
-        BlocProvider.of<ProductBloc>(context).state.games.isEmpty) {
-      if (BlocProvider.of<ProductBloc>(context).state.games.isEmpty) {
-        BlocProvider.of<ProductBloc>(context).add(
-          GetAllProducts(
-            uid: BlocProvider.of<LoginBloc>(context).state.user.uid.toString(),
-          ),
-        );
-      }
-    }
     super.initState();
 
     controllerSwipper = TabController(length: 4, vsync: this);
@@ -50,12 +40,12 @@ class _HomeScreenState extends State<HomeScreen>
     });
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    BlocProvider.of<ProductBloc>(context).close();
-    controllerSwipper!.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   super.dispose();
+  //   BlocProvider.of<ProductBloc>(context).close();
+  //   controllerSwipper!.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {

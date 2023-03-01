@@ -61,3 +61,5 @@ class PressButtonStatusSwitch extends ProductEvent {
 }
 
 class CallLoading extends ProductEvent {}
+
+class SetDefaultState extends ProductEvent {}

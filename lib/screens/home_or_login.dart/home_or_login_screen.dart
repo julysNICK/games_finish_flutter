@@ -30,10 +30,12 @@ class _HomeOrLoginScreenState extends State<HomeOrLoginScreen> {
           BlocProvider.of<LoginBloc>(context)
               .add(const InitScreenHomeLoading());
 
-          if (BlocProvider.of<ProductBloc>(context).state.games.isEmpty) {
-            BlocProvider.of<ProductBloc>(context).add(
-                GetAllProducts(uid: FirebaseAuth.instance.currentUser!.uid));
-          }
+          BlocProvider.of<ProductBloc>(context).add(
+            GetAllProducts(
+              uid: snapshot.data!.uid.toString(),
+            ),
+          );
+
           return const HomeScreen();
         } else if (snapshot.hasError) {
           return const Scaffold(
