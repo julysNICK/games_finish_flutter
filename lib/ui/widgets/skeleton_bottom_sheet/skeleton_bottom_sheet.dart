@@ -42,107 +42,132 @@ class _SkeletonBottomSheetState extends State<SkeletonBottomSheet> {
         status: defaultChoice,
         userUid: BlocProvider.of<LoginBloc>(context).state.user.uid,
       )));
+
+      FocusScope.of(context).unfocus();
+
+      _titleController.clear();
     }
 
     return DraggableScrollableSheet(
       initialChildSize: 1,
       builder: (context, scrollController) {
-        return SingleChildScrollView(
-          child: Container(
-            decoration: const BoxDecoration(
-              color: Color(0xFFE5E5E5),
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(50),
+        return BlocListener<ProductBloc, ProductState>(
+          listener: (context, state) {
+            // TODO: implement listener
+            if (state is ProductError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                ),
+              );
+            }
+
+            if (state is ProductAddState) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Game added'),
+                ),
+              );
+              Navigator.pop(context);
+            }
+          },
+          child: SingleChildScrollView(
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Color(0xFFE5E5E5),
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(50),
+                ),
+                shape: BoxShape.rectangle,
               ),
-              shape: BoxShape.rectangle,
-            ),
-            child: Column(
-              children: [
-                Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      height: 5,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(10),
+              child: Column(
+                children: [
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 20),
+                        height: 5,
+                        width: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                const Center(
-                  child: Text(
-                    'Add a new game',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: AppTheme.textDark),
+                  const SizedBox(
+                    height: 20,
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                FieldCustom(
-                  controller: _titleController,
-                  hintText: 'Game name',
-                  icon: Icons.gamepad,
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  children: choices
-                      .map(
-                        (e) => Flexible(
-                          flex: 1,
-                          child: RadioListTile(
-                            toggleable: true,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            title: Text(
-                              e.choice,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: defaultIndex == e.index
-                                    ? Colors.black
-                                    : AppTheme.textDark,
+                  const Center(
+                    child: Text(
+                      'Add a new game',
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: AppTheme.textDark),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  FieldCustom(
+                    controller: _titleController,
+                    hintText: 'Game name',
+                    icon: Icons.gamepad,
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    children: choices
+                        .map(
+                          (e) => Flexible(
+                            flex: 1,
+                            child: RadioListTile(
+                              toggleable: true,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
                               ),
+                              title: Text(
+                                e.choice,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: defaultIndex == e.index
+                                      ? Colors.black
+                                      : AppTheme.textDark,
+                                ),
+                              ),
+                              value: e.index,
+                              groupValue: defaultIndex,
+                              onChanged: (value) {
+                                setState(() {
+                                  defaultChoice = e.choice;
+                                  defaultIndex = e.index;
+                                });
+                              },
                             ),
-                            value: e.index,
-                            groupValue: defaultIndex,
-                            onChanged: (value) {
-                              setState(() {
-                                defaultChoice = e.choice;
-                                defaultIndex = e.index;
-                              });
-                            },
                           ),
-                        ),
-                      )
-                      .toList(),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    addGame();
-                    // Navigator.pop(context);
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text('Add game', style: TextStyle(fontSize: 20)),
+                        )
+                        .toList(),
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      addGame();
+                      // Navigator.pop(context);
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('Add game', style: TextStyle(fontSize: 20)),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );

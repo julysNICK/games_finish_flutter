@@ -38,13 +38,22 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(LoginLoading());
       try {
         await LoginServices().signOut();
+        emit(
+          LoginInitial(
+            user: UserApp(email: "", name: "", numberPhoneUser: "", uid: ""),
+          ),
+        );
+
+        emit(
+          LoginSuccessGetUser(
+            user: UserApp(email: "", name: "", numberPhoneUser: "", uid: ""),
+          ),
+        );
         emit(SignOutSuccess());
-        isFinish = false;
       } catch (error) {
         emit(LoginFailure(
           error: error.toString(),
         ));
-        isFinish = false;
       }
     });
 

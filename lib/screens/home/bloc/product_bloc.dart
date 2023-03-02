@@ -150,11 +150,13 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     on<ProductClearWhenLogout>((event, emit) async {
       gamesList.clear();
       gameListSearch.clear();
-      emit(
-        ProductAddState(
-          games: gamesList,
-        ),
-      );
+      // emit(
+      //   ProductAddState(
+      //     games: gamesList,
+      //     gamesListSearch: gamesList,
+      //     status: 'all',
+      //   ),
+      // );
     });
 
     on<CallLoading>((event, emit) async {

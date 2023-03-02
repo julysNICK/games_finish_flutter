@@ -42,7 +42,8 @@ class _LoginScreenState extends State<LoginScreen> {
           if (state is LoginSuccess) {
             BlocProvider.of<LoginBloc>(context)
                 .add(const InitScreenHomeLoading());
-            Navigator.pushNamed(context, '/home');
+
+            Navigator.pushNamed(context, '/homeOrLogin');
           }
 
           if (state is LoginFailure) {

@@ -20,9 +20,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    print(BlocProvider.of<ProductBloc>(context).state.index);
 
-    BlocProvider.of<ProductBloc>(context).add(PressButtonStatusSwitch(
+    BlocProvider.of<ProductBloc>(context).add(const PressButtonStatusSwitch(
       index: 0,
     ));
   }
@@ -123,10 +122,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      BlocProvider.of<LoginBloc>(context)
-                          .add(const SignOutButtonPressed());
                       BlocProvider.of<ProductBloc>(context)
                           .add(ProductClearWhenLogout());
+                      BlocProvider.of<LoginBloc>(context)
+                          .add(const SignOutButtonPressed());
 
                       Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
