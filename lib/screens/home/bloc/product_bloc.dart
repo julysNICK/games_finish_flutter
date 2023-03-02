@@ -138,8 +138,6 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     });
 
     on<SetDefaultState>((event, emit) async {
-      print("set default state");
-      print("gamesListDefault: $gamesList");
       emit(
         ProductAddState(
           games: gamesList,

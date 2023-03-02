@@ -27,7 +27,7 @@ class ProductClearWhenLogout extends ProductEvent {}
 class PressButtonStatusSwitch extends ProductEvent {
   final int index;
 
-  PressButtonStatusSwitch({required this.index});
+  const PressButtonStatusSwitch({required this.index});
 
   @override
   List<Object> get props => [index];
