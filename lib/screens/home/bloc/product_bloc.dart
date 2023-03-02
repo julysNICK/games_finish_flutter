@@ -37,6 +37,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
               games: gamesList,
               gamesListSearch: gamesList,
               status: 'all',
+              index: event.index,
             ),
           );
           break;
@@ -55,6 +56,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
                       'inprogress')
                   .toList(),
               status: 'inprogress',
+              index: event.index,
             ),
           );
           break;
@@ -73,6 +75,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
                       'completed')
                   .toList(),
               status: 'completed',
+              index: event.index,
             ),
           );
           break;
@@ -91,6 +94,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
                       'platinum')
                   .toList(),
               status: 'platinum',
+              index: event.index,
             ),
           );
           break;
@@ -100,6 +104,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
               games: gamesList,
               gamesListSearch: gamesList,
               status: 'all',
+              index: event.index,
             ),
           );
       }

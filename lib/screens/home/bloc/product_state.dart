@@ -4,10 +4,13 @@ abstract class ProductState extends Equatable {
   final List<GameModel> games;
   final List<GameModel> gamesListSearch;
   final String status;
+  final int index;
+
   const ProductState(
       {this.games = const [],
       this.gamesListSearch = const [],
-      this.status = 'all'});
+      this.status = 'all',
+      this.index = 0});
 
   @override
   List<Object> get props => [];
@@ -33,11 +36,16 @@ class ProductAddState extends ProductState {
   final List<GameModel> gamesListSearch;
 
   @override
+  final int index;
+
+  @override
   final String status;
-  const ProductAddState(
-      {required this.games,
-      this.gamesListSearch = const [],
-      this.status = 'all'});
+  const ProductAddState({
+    required this.games,
+    this.gamesListSearch = const [],
+    this.status = 'all',
+    this.index = 0,
+  });
 
   @override
   List<Object> get props => [games];
@@ -50,26 +58,4 @@ class ProductError extends ProductState {
 
   @override
   List<Object> get props => [message];
-}
-
-class ProductGetSuccess extends ProductState {}
-
-class ProductsUpdate extends ProductState {
-  @override
-  final List<GameModel> games;
-
-  const ProductsUpdate({required this.games});
-
-  @override
-  List<Object> get props => [games];
-}
-
-class ProductbyStatus extends ProductState {
-  @override
-  final List<GameModel> games;
-
-  const ProductbyStatus({required this.games});
-
-  @override
-  List<Object> get props => [games];
 }

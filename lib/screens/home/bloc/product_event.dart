@@ -16,33 +16,6 @@ class ProductAdd extends ProductEvent {
   List<Object> get props => [games];
 }
 
-class ProductAddInFirebase extends ProductEvent {
-  final GameModel games;
-
-  const ProductAddInFirebase({required this.games});
-
-  @override
-  List<Object> get props => [games];
-}
-
-class ProductRemove extends ProductEvent {
-  final GameModel games;
-
-  const ProductRemove({required this.games});
-
-  @override
-  List<Object> get props => [games];
-}
-
-class ListProductByStatus extends ProductEvent {
-  final String status;
-
-  const ListProductByStatus({required this.status});
-
-  @override
-  List<Object> get props => [status];
-}
-
 class GetAllProducts extends ProductEvent {
   String uid;
 
@@ -54,7 +27,7 @@ class ProductClearWhenLogout extends ProductEvent {}
 class PressButtonStatusSwitch extends ProductEvent {
   final int index;
 
-  const PressButtonStatusSwitch({required this.index});
+  PressButtonStatusSwitch({required this.index});
 
   @override
   List<Object> get props => [index];

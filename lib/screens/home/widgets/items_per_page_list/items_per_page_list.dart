@@ -35,7 +35,7 @@ class _ItemsPerPageState extends State<ItemsPerPage> {
                 ? state.games.length
                 : state.gamesListSearch.length,
             itemBuilder: (context, index) {
-              final GameModel game = state.games[index];
+              final GameModel game = state.gamesListSearch[index];
 
               return CardGame(
                 title: game.title,
