@@ -20,11 +20,18 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginButtonPressed>((event, emit) async {
       emit(LoginLoading());
       try {
-        await LoginServices().register(event.email, event.password);
+        final User? token =
+            await LoginServices().register(event.email, event.password);
 
         emit(
-          LoginSuccess(
-            user: UserApp(email: event.email, name: "", numberPhoneUser: ""),
+          LoginSuccessGetUser(
+            user: UserApp(
+              email: token!.email ?? token.email.toString(),
+              name: token.displayName ?? token.displayName.toString(),
+              numberPhoneUser:
+                  token.phoneNumber ?? token.phoneNumber.toString(),
+              uid: token.uid,
+            ),
           ),
         );
       } catch (error) {
@@ -38,18 +45,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       emit(LoginLoading());
       try {
         await LoginServices().signOut();
-        emit(
-          LoginInitial(
-            user: UserApp(email: "", name: "", numberPhoneUser: "", uid: ""),
-          ),
+
+        emit(SignOutSuccess());
+
+        LoginSuccessGetUser(
+          user: UserApp(email: "", name: "", numberPhoneUser: "", uid: ""),
         );
 
-        emit(
-          LoginSuccessGetUser(
-            user: UserApp(email: "", name: "", numberPhoneUser: "", uid: ""),
-          ),
+        LoginInitial(
+          user: UserApp(email: "", name: "", numberPhoneUser: "", uid: ""),
         );
-        emit(SignOutSuccess());
       } catch (error) {
         emit(LoginFailure(
           error: error.toString(),

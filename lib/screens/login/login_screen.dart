@@ -39,10 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.white,
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
-          if (state is LoginSuccess) {
-            BlocProvider.of<LoginBloc>(context)
-                .add(const InitScreenHomeLoading());
-
+          if (state is LoginSuccessGetUser) {
             Navigator.pushNamed(context, '/homeOrLogin');
           }
 

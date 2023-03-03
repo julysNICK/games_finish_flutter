@@ -10,10 +10,11 @@ class LoginServices {
 
   LoginServices._internal();
 
-  Future<void> register(String email, String password) async {
+  Future<User?> register(String email, String password) async {
     try {
       // bool? user = await LoginRepo().loginUser(email, password);
-      await LoginRepo.signinUser(email, password);
+      User? user = await LoginRepo.signinUser(email, password);
+      return user;
     } catch (e) {
       rethrow;
     }

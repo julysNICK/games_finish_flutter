@@ -26,7 +26,13 @@ class _HomeScreenState extends State<HomeScreen>
     super.initState();
 
     controllerSwipper = TabController(length: 4, vsync: this);
-
+    if (BlocProvider.of<ProductBloc>(context).state is ProductInitial &&
+        BlocProvider.of<ProductBloc>(context).state.games.isEmpty) {
+      BlocProvider.of<ProductBloc>(context).add(
+        GetAllProducts(
+            uid: BlocProvider.of<LoginBloc>(context).state.user.uid ?? ''),
+      );
+    }
     controllerSwipper!.addListener(() {
       BlocProvider.of<ProductBloc>(context).add(CallLoading());
       setState(() {

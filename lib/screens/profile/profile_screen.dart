@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:games_finish/screens/home/bloc/product_bloc.dart';
-import 'package:games_finish/screens/login/login_screen.dart';
 import 'package:games_finish/screens/profile/widgets/card_information_profile.dart';
 
 import '../../ui/widgets/my_bottom_app_bar/my_bottom_app_bar.dart';
@@ -122,15 +121,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      BlocProvider.of<ProductBloc>(context)
-                          .add(ProductClearWhenLogout());
                       BlocProvider.of<LoginBloc>(context)
                           .add(const SignOutButtonPressed());
+                      BlocProvider.of<ProductBloc>(context)
+                          .add(ProductClearWhenLogout());
 
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (context) => const LoginScreen()),
-                          (Route<dynamic> route) => false);
+                      Navigator.of(context).pushNamed("/login");
                     },
                     child: const Text('Sign Out'),
                   ),

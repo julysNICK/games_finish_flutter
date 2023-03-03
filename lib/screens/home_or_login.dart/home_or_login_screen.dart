@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:games_finish/screens/home/bloc/product_bloc.dart';
+import 'package:games_finish/screens/login/login_screen.dart';
 
 import '../home/home_screen.dart';
 import '../leading/leading_screen.dart';
@@ -26,17 +26,16 @@ class _HomeOrLoginScreenState extends State<HomeOrLoginScreen> {
               child: CircularProgressIndicator(),
             ),
           );
-        } else if (snapshot.hasData) {
-          BlocProvider.of<LoginBloc>(context)
-              .add(const InitScreenHomeLoading());
-
-          BlocProvider.of<ProductBloc>(context).add(
-            GetAllProducts(
-              uid: snapshot.data!.uid.toString(),
-            ),
+        } else if (snapshot.hasData && snapshot.data != null) {
+          return BlocBuilder<LoginBloc, LoginState>(
+            builder: (context, state) {
+              if (state.user.uid != null && state.user.uid!.isNotEmpty) {
+                return const HomeScreen();
+              } else {
+                return const LoginScreen();
+              }
+            },
           );
-
-          return const HomeScreen();
         } else if (snapshot.hasError) {
           return const Scaffold(
             body: Center(

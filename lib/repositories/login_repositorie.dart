@@ -35,12 +35,17 @@ class LoginRepo {
     return null;
   }
 
-  static signinUser(String email, String password) async {
+  static Future<User> signinUser(String email, String password) async {
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      UserCredential response =
+          await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
+      // get info from user
+      User? user = response.user;
+
+      return user!;
     } catch (e) {
       print(e);
       returnError(e);

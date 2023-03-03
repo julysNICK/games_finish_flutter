@@ -114,26 +114,28 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       emit(ProductLoading(
         isLoading: true,
       ));
-      try {
-        final gamesAll = await GameService().getAllGames(event.uid);
+      if (gamesList.isEmpty) {
+        try {
+          final gamesAll = await GameService().getAllGames(event.uid);
 
-        for (var element in gamesAll) {
-          gamesList.add(GameModel(
-            image: "assets/images/ps5.png",
-            title: element['name'],
-            status: element['status'],
-          ));
+          for (var element in gamesAll) {
+            gamesList.add(GameModel(
+              image: "assets/images/ps5.png",
+              title: element['name'],
+              status: element['status'],
+            ));
+          }
+
+          emit(
+            ProductAddState(
+              games: gamesList,
+              gamesListSearch: gamesList,
+              status: 'all',
+            ),
+          );
+        } catch (e) {
+          emit(ProductError(message: e.toString()));
         }
-
-        emit(
-          ProductAddState(
-            games: gamesList,
-            gamesListSearch: gamesList,
-            status: 'all',
-          ),
-        );
-      } catch (e) {
-        emit(ProductError(message: e.toString()));
       }
     });
 
