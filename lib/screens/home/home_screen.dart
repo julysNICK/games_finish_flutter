@@ -26,11 +26,12 @@ class _HomeScreenState extends State<HomeScreen>
     super.initState();
 
     controllerSwipper = TabController(length: 4, vsync: this);
+
     if (BlocProvider.of<ProductBloc>(context).state is ProductInitial &&
-        BlocProvider.of<ProductBloc>(context).state.games.isEmpty) {
-      BlocProvider.of<ProductBloc>(context).add(
-        GetAllProducts(
-            uid: BlocProvider.of<LoginBloc>(context).state.user.uid ?? ''),
+        BlocProvider.of<ProductBloc>(context).state.games.isEmpty &&
+        BlocProvider.of<LoginBloc>(context).state.user.uid != null) {
+      BlocProvider.of<LoginBloc>(context).add(
+        const InitScreenHomeLoading(),
       );
     }
     controllerSwipper!.addListener(() {
@@ -56,67 +57,94 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<ProductBloc, ProductState>(
-        builder: (context, state) {
-          if (state is ProductLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
+      body: BlocListener<LoginBloc, LoginState>(
+        listener: (context, state) {
+          // TODO: implement listener
+
+          if (state is LoginSuccessGetUser &&
+              state.user.uid != null &&
+              BlocProvider.of<ProductBloc>(context).state.games.isEmpty) {
+            BlocProvider.of<ProductBloc>(context).add(
+              GetAllProducts(uid: state.user.uid ?? ''),
             );
           }
 
-          return DefaultTabController(
-            length: 4,
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BlocBuilder<LoginBloc, LoginState>(
-                      builder: (context, LoginState state) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 0.00),
-                          child: Text(
-                            "Hello ${state.user.name.split('@')[0].toString()}, welcome to the FinishLine",
-                            style: const TextStyle(
-                                color: AppTheme.textDark,
-                                fontSize: 32,
-                                fontWeight: FontWeight.bold),
+          if (state is LoginLoading || state is LoginButtonPressed) {
+            setState(() {
+              isLoading = true;
+            });
+          }
+          if (state is LoginSuccessGetUser) {
+            setState(() {
+              isLoading = false;
+            });
+          }
+        },
+        child: BlocBuilder<ProductBloc, ProductState>(
+          builder: (context, state) {
+            if (state is ProductLoading ||
+                isLoading ||
+                BlocProvider.of<LoginBloc>(context).state.user.name.isEmpty) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            return DefaultTabController(
+              length: 4,
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BlocBuilder<LoginBloc, LoginState>(
+                        builder: (context, LoginState state) {
+                          return Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 0.00),
+                            child: Text(
+                              "Hello ${state.user.name.split('@')[0].toString()}, welcome to the FinishLine",
+                              style: const TextStyle(
+                                  color: AppTheme.textDark,
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          );
+                        },
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 0.00),
+                        child: Text(
+                          'the best way to store your finished games',
+                          style: TextStyle(
+                            color: AppTheme.textDark.withOpacity(0.5),
+                            fontSize: 15,
                           ),
-                        );
-                      },
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 0.00),
-                      child: Text(
-                        'the best way to store your finished games',
-                        style: TextStyle(
-                          color: AppTheme.textDark.withOpacity(0.5),
-                          fontSize: 15,
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    TabBarViewHome(
-                      controllerSwipper: controllerSwipper,
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Flexible(
-                      flex: 1,
-                      child: ListGridItems(
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      TabBarViewHome(
                         controllerSwipper: controllerSwipper,
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Flexible(
+                        flex: 1,
+                        child: ListGridItems(
+                          controllerSwipper: controllerSwipper,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: BlocBuilder<ProductBloc, ProductState>(

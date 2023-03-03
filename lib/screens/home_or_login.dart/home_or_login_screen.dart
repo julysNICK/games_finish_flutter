@@ -1,11 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:games_finish/screens/login/login_screen.dart';
 
 import '../home/home_screen.dart';
 import '../leading/leading_screen.dart';
-import '../login/bloc/login_bloc.dart';
 
 class HomeOrLoginScreen extends StatefulWidget {
   const HomeOrLoginScreen({super.key});
@@ -27,15 +24,7 @@ class _HomeOrLoginScreenState extends State<HomeOrLoginScreen> {
             ),
           );
         } else if (snapshot.hasData && snapshot.data != null) {
-          return BlocBuilder<LoginBloc, LoginState>(
-            builder: (context, state) {
-              if (state.user.uid != null && state.user.uid!.isNotEmpty) {
-                return const HomeScreen();
-              } else {
-                return const LoginScreen();
-              }
-            },
-          );
+          return const HomeScreen();
         } else if (snapshot.hasError) {
           return const Scaffold(
             body: Center(

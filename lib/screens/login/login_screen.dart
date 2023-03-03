@@ -39,10 +39,6 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.white,
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
-          if (state is LoginSuccessGetUser) {
-            Navigator.pushNamed(context, '/homeOrLogin');
-          }
-
           if (state is LoginFailure) {
             if (state.error.isNotEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -178,7 +174,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   _passwordController.text,
                                             ),
                                           );
-
+                                          Navigator.pushNamed(
+                                              context, '/homeAfterLogin');
                                           return;
                                         }
                                         setState(() {
