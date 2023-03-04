@@ -47,7 +47,6 @@ class LoginRepo {
 
       return user!;
     } catch (e) {
-      print(e);
       returnError(e);
       print('User not signed in');
       rethrow;
